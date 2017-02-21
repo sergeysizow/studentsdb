@@ -13,85 +13,87 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="col-md-5">
-        <div class="form-area">
 
-            <form role="form">
-                <br style="clear:both">
+<h3 style="margin-bottom: 25px; text-align: center;">Форма редагування студентів</h3>
 
-                <h3 style="margin-bottom: 25px; text-align: center;">Форма редагування студентів</h3>
 
-                <div class="form-group"> Прізвище
-                    <input type="text" class="form-control" id="name1" name="Прізвище" placeholder="Прізвище" required>
+     <form class="form-horizontal">
+
+              <div class="form-group">
+                <label class="col-xs-3 control-label">Прізвище</label>
+
+                <div class="col-xs-4">
+                    <input type="text" class="form-control" value="Введіть текст...">
                 </div>
+              </div>
 
-                <div class="form-group"> Імʼя
-                    <input type="text" class="form-control" id="name2" name="Імʼя" placeholder="Імʼя" required>
-                </div>
+               <div class="form-group">
+                      <label class="col-xs-3 control-label">Ім'я*</label>
 
-                <div class="form-group"> По-батькові
-                    <input type="text" class="form-control" id="name3" name="По-батькові" placeholder="По-батькові"
-                           required>
-                </div>
 
-                <div class="form-group"> електронна пошта
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
-                </div>
+                   <div class="col-xs-4">
+                        <input type="text" class="form-control" value="Введіть текст...">
+                   </div>
+               </div>
 
-                <div class="form-group"> Номер білету
-                    <input type="number" class="form-control" id="name" name="" placeholder="Номер білету" required>
-                </div>
 
-                <div class="form-group"> Дата народження
-                    <input type="text" class="form-control" id="name" name="Дата Народження"
-                           placeholder="Дата народження" required>
-                </div>
 
-                <div class="form-group"> Мобільний номер
-                    <input type="text" class="form-control" id="mobile" name="телефон" placeholder="Мобільний номер"
-                           required>
-                </div>
+              <div class="form-group">
+                     <label class="col-xs-3 control-label">По батькові</label>
 
-                <div class="form-group"> Група
-                    <input type="text" class="form-control" id="subject" name="group" placeholder="Група" required>
-                </div>
+                  <div class="col-xs-4">
+                         <input type="text" class="form-control" value="Введіть текст...">
+                  </div>
+              </div>
 
-                <label class="btn btn-default btn-file"> Фото <input type="file" hidden> </label>
+              <div class="form-group">
+                     <label class="col-xs-3 control-label">Група</label>
 
-                <div class="form-group">
-                    <textarea class="form-control" type="textarea" id="message" placeholder="Додаткові нотатки"
+                  <div class="col-xs-4">
+                          <input type="text" class="form-control" value="Введіть текст...">
+                  </div>
+              </div>
+
+               <div class="form-group">
+                       <label class="col-xs-3 control-label">e-mail</label>
+                       <div class="col-xs-4">
+                           <input type="email" class="form-control" value="Введіть текст...">
+                       </div>
+               </div>
+
+               <div class="form-group">
+                       <label class="col-xs-3 control-label">Телефон</label>
+                       <div class="col-xs-4">
+                          <input type="number" class="form-control" value="Введіть текст...">
+                       </div>
+               </div>
+
+               <div class="form-group">
+                       <label class="col-xs-3 control-label">Фото</label>
+                       <div class="col-xs-4">
+                          <input type="file" hidden>
+                       </div>
+               </div>
+
+               <div class="form-group">
+                   <label class="col-xs-3 control-label">Додаткові нотатки</label>
+                   <div class="col-xs-4">
+                      <textarea class="form-control" type="textarea" id="message" placeholder="Додаткові нотатки"
                               maxlength="140" rows="7"></textarea>
-                    <span class="help-block"><p id="characterLeft"
-                                                class="help-block ">You have reached the limit</p></span>
-                </div>
+                   </div>
+               </div>
 
-            </form>
-        </div>
-    </div>
-</div>
+     </form>
 
-<label><input type="checkbox"> Запамʼятати</label>
-
-<ul class="nav nav-pills">
-    <li class="active"><a href="#">Зберегти</a></li>
-    <li><a href="#">Скасувати</a></li>
-</ul>
-
-
-</div>
-
-
-<form class="form-horizontal">
-    <div class="form-group">
-        <label class="col-xs-2 control-label">Ім'я*</label>
-
-        <div class="col-xs-3">
-            <input type="text" class="form-control" value="Введіть текст...">
-        </div>
-    </div>
-</form>
-</div>
+       <div class="row">
+            <div class="col-xs-3"></div>
+            <div class="col-xs-4">
+                <ul class="nav nav-pills">
+                                 <li class="active"><a href="#">Зберегти</a></li>
+                                 <li><a href="#">Скасувати</a></li>
+                </ul>
+            </div>
+       </div>
 
 </body>
 
