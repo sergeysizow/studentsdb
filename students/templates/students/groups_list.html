@@ -2,12 +2,12 @@
 
 {% load static from staticfiles %}
 
-{% block meta_title %}Студенти{% endblock meta_title %}
+{% block meta_title %}Групи{% endblock meta_title %}
 
-{% block title %}База Студентів{% endblock title %}
+{% block title %}Групи Студентів{% endblock title %}
 
 {% block content %}
-<a href="{% url 'students_add' %}" class="btn btn-primary">Додати Студента</a>
+<a href="{% url 'groups_add' %}" class="btn btn-primary">Додати Групу</a>
 
                      <!-- Start Students Listing-->
                      <table class="table table-hover table-striped">
@@ -15,22 +15,18 @@
                          <thead>
                              <tr>
                                  <th>№</th>
-                                 <th>Фото</th>
-                                 <th>Імʼя</th>
-                                 <th>Прізвище</th>
-                                 <th>№ Білету</th>
+                                 <th>Група</th>
+                                 <th>Староста</th>
                                  <th>Дії</th>
                              </tr>
                          </thead>
 
                          <tbody>
-                           {% for student in students %}
+                           {% for groups in groups %}
                              <tr>
                                  <td>{{ forloop.counter }}</td>
-                                 <td><img src="{% static student.image %}" height="50" width="50" class="img-circle"></td>
-                                 <td><a title="Редагувати" href="{% url 'students_edit' student.id %}">{{ student.last_name }}</a></td>
-                                 <td><a title="Редагувати" href="{% url 'students_edit' student.id %}">{{ student.first_name }}</a></td>
-                                 <td>{{ student.ticket }}</td>
+                                 <td><a title="Редагувати" href="{% url 'groups_edit' groups.group %}">{{ groups.group }}</a></td>
+                                 <td><a title="Редагувати" href="{% url 'groups_edit' groups.id %}">{{ groups.leader }}</a></td>
                                  <td>
                                     <div class="dropdown">
                                        <button class="btn btn-default dropdown-toggle"
@@ -46,12 +42,12 @@
 
                                            <li role="presentation">
                                              <a role="menuitem" tabindex="-1"
-                                                href="{% url 'students_edit' student.id %}">Редагувати</a>
+                                                href="{% url 'groups_edit' groups.id %}">Редагувати</a>
                                            </li>
 
                                            <li role="presentation">
                                              <a role="menuitem" tabindex="-1"
-                                                href="{% url 'students_delete' student.id %}">Видалити</a>
+                                                href="{% url 'groups_delete' groups.id %}">Видалити</a>
                                             </li>
                                        </ul>
                                     </div>
