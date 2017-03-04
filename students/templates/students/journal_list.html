@@ -1,0 +1,115 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+
+{% block meta_title %}Журнал{% endblock meta_title %}
+
+{% block title %}Журнал Відвідування Студентів{% endblock title %}
+
+{% block content %}
+<a href="{% url 'students_add' %}" class="btn btn-primary">Додати Студента</a>
+
+            <!-- Start Students Listing-->
+            <table class="table table-hover table-bordered">
+                <caption>Січень 2017р</caption>
+
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Студент</th>
+                    <th>Група</th>
+                    <th>1<br>Ср</th>
+                    <th>2<br>Чт</th>
+                    <th>3<br>Пт</th>
+                    <th>4<br>Сб</th>
+                    <th>5<br>Нд</th>
+                    <th>6<br>Пн</th>
+                    <th>7<br>Вт</th>
+                    <th>8<br>Ср</th>
+                    <th>9<br>Чт</th>
+                    <th>10<br>Пт</th>
+                    <th>11<br>Сб</th>
+                    <th>12<br>Нд</th>
+                    <th>13<br>Пн</th>
+                    <th>14<br>Вт</th>
+                    <th>15<br>Ср</th>
+                    <th>16<br>Чт</th>
+                    <th>17<br>Пт</th>
+                    <th>18<br>Сб</th>
+                    <th>19<br>Нд</th>
+                    <th>20<br>Пн</th>
+                    <th>21<br>Вт</th>
+                    <th>22<br>Ср</th>
+                    <th>23<br>Чт</th>
+                    <th>24<br>Пт</th>
+                    <th>25<br>Сб</th>
+                    <th>26<br>Нд</th>
+                    <th>27<br>Пн</th>
+                    <th>28<br>Вт</th>
+                    <th>29<br>Ср</th>
+                    <th>30<br>Чт</th>
+                    <th>31<br>Пт</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for journal in journal %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a title="Редагувати" href="{% url 'students_edit' journal.id %}">{{ journal.student }}</a></td>
+                    <td><a title="Редагувати" href="{% url 'groups_edit' journal.id %}">{{ journal.group }}</a></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+                    <td><label><input type="checkbox"></label></td>
+
+                </tr>
+
+                 {% endfor %}
+
+                </tbody>
+            </table>
+            <!-- End Students Listing-->
+
+            <nav>
+                <ul class="pagination">
+                    <li><a href="#">&laquo;</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </nav>
+
+
+    <!--End Main Page Content-->
+
+{% endblock content %}
