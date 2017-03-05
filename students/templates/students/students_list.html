@@ -6,7 +6,21 @@
 
 {% block title %}База Студентів{% endblock title %}
 
+{% block menu_group %}
+
+            <div class="col-xs-4" id="group-selector">
+                <strong>Група:</strong>
+                    <select>
+                        <option value=””>Усі Студенти</option>
+                        <option value=””>Трамп Д. (453)</option>
+                        <option value=””>Путін Володя (No 2123)</option>
+                    </select>
+            </div>
+
+            {% endblock menu_group %}
+
 {% block content %}
+
 <a href="{% url 'students_add' %}" class="btn btn-primary">Додати Студента</a>
 
                      <!-- Start Students Listing-->
@@ -62,15 +76,5 @@
                      </table>
                      <!-- End Students Listing-->
 
-                     <nav>
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                     </nav>
+         {% include 'includes/pagination.html' %}
 {% endblock content %}
