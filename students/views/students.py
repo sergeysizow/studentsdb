@@ -4,30 +4,13 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from ..models import Student
 
 # Views for Students
 
 def students_list(request):
-    students = (
-        {'id': 1,
-         'first_name': u'Дональд',
-         'last_name': u'Трамп',
-         'ticket': 6456,
-         'image': 'img/tramp.jpg'},
+    students = Student.objects.all()
 
-        {'id': 2,
-         'first_name': u'Володя',
-         'last_name': u'Путін',
-         'ticket': 6666,
-         'image': 'img/putin.jpg'},
-
-        {'id': 3,
-         'first_name': u'Порошенко',
-         'last_name': u'Петро',
-         'ticket': 6589,
-         'image': 'img/poroshenko.jpg'},
-
-    )
     return render(request, 'students/students_list.html', {'students': students})
 
 
