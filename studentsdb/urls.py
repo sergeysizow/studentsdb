@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from students.views import students, groups, journal
+from django.conf import settings
+from django.conf.urls.static import static
 
-urlpatterns = (
+urlpatterns = [
 
     # Students url
     url(r'^$', students.students_list, name='home'),
@@ -34,4 +36,9 @@ urlpatterns = (
     # Other url
     url(r'^journal/$', journal.journal_list, name='journal'),
     url(r'^admin/', include(admin.site.urls))
-)
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    #serve files from media folder
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
