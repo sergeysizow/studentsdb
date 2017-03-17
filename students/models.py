@@ -10,7 +10,9 @@ class Student(models.Model):
   """ Students model """
 
 #user-frendly name in admin
-  class Meta(object):                   
+
+  class Meta(object):  
+                 
       verbose_name = u"Студент",
       verbose_name_plural = u"Студенти"
 
