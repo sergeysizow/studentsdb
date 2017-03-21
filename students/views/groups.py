@@ -4,23 +4,40 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from ..models import Group
+
 
     # Views for Groups
 
 def groups_list(request):
-    groups = (
-        {'id': 1,
-         'group': 304,
-         'leader': u'Трамп Д.'},
+    groups = Group.objects.all()
 
-        {'id': 2,
-         'group': 203,
-         'leader': u'Путін В.'},
+    # try to order groups list
 
-        {'id': 3,
-         'group': 104,
-         'leader': u'Порошенко П.'},
-    )
+    order_by = request.GET.get('order_by', '')
+    if order_by in ('title', 'leader'):
+        groups = groups.order_by(order_by)
+        if request.GET.get('reverse', '') == '1':
+            groups = groups.reverse()
+
+    else:
+        groups = groups.order_by('title')
+
+    # paginator groups
+
+    paginator = Paginator(groups, 2)
+    page = request.GET.get('page')
+    try:
+        groups = paginator.page(page)
+    except PageNotAnInteger:
+        # If page not integer, deliver first page
+        groups = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results
+        groups = paginator.page(paginator.num_pages)
+
     return render(request, 'students/groups_list.html', {'groups': groups})
 
 
