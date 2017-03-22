@@ -5,7 +5,7 @@
           {% for p in students.paginator.page_range %}
           <li {% if students.number == p %} class="active" {% endif %}>
                <a href="{% url 'home' %}?page={{ p }}">{{ p }}</a></li>
-          <{% endfor %}
+          {% endfor %}
           <li><a href="{% url 'home' %}?page={{ students.paginator.num_pages }}">&raquo;</a></li>
      </ul>
 </nav>
@@ -15,11 +15,11 @@
 {% if groups.has_other_pages %}
 <nav>
      <ul class="pagination">
-          <li><a href="{% url 'home' %}?page=1">&laquo;</a></li>
+          <li><a href="{% url 'groups' %}?page=1">&laquo;</a></li>
           {% for p in groups.paginator.page_range %}
           <li {% if groups.number == p %} class="active" {% endif %}>
                <a href="{% url 'groups' %}?page={{ p }}">{{ p }}</a></li>
-          <{% endfor %}
+          {% endfor %}
           <li><a href="{% url 'groups' %}?page={{ groups.paginator.num_pages }}">&raquo;</a></li>
      </ul>
 </nav>
