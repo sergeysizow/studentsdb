@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from students.views import students, groups, journal
+from students.views import students, groups, journal, exams
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -33,9 +33,15 @@ urlpatterns = [
     url(r'^groups/(?P<gid>\d+)/edit/$', groups.groups_edit, name='groups_edit'),
     url(r'^groups/(?P<gid>\d+)/delete/$', groups.groups_delete, name='groups_delete'),
 
+    # Exams url
+    url(r'^exams$', exams.exams_list, name='exams'),
+    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
+    url(r'^exams/(?P<title>\w+)/edit/$', exams.exams_edit, name='exams_edit'),
+    url(r'^groups/(?P<title>\w+)/delete/$', exams.exams_delete, name='exams_delete'),
+
     # Other url
     url(r'^journal/$', journal.journal_list, name='journal'),
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', include(admin.site.urls)),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
