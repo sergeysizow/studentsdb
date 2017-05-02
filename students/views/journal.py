@@ -2,21 +2,43 @@
 
 from django.shortcuts import render
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from ..models.students import Student
+
 
     # Views for Journal
 
 def journal_list(request):
-    journal = (
-        {'id': 1,
-         'group': 304,
-         'student': u'Трамп Д.'},
+    journal = Student.objects.all()
 
-        {'id': 2,
-         'group': 203,
-         'student': u'Путін В.'},
-
-        {'id': 3,
-         'group': 104,
-         'student': u'Порошенко П.'},
-    )
     return render(request, 'students/journal_list.html', {'journal': journal})
+
+def students_list(request):
+    students = Student.objects.all()
+
+    # try to order students list
+
+    order_by = request.GET.get('order_by', '')
+    if order_by in ('last_name', 'first_name', 'ticket'):
+        students = students.order_by(order_by)
+        if request.GET.get('reverse', '') == '1':
+            students = students.reverse()
+
+    else:
+        students = students.order_by('last_name')
+
+    # paginator students
+
+    paginator = Paginator(students, 3)
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        # If page not integer, deliver first page
+        students = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results
+        students = paginator.page(paginator.num_pages)
+
+    return render(request, 'students/students_list.html', {'students': students})

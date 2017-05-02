@@ -72,19 +72,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'studentsdb.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'USER': 'students_db_user',
-	'PASSWORD': 'aezakmi_5090608_AEZAKMI',
-	'NAME': 'students_db',
-    }
-}
-
+from db import DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -110,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 

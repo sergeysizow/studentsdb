@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-
 class Student(models.Model):
     """ Students model """
 
@@ -60,4 +59,3 @@ class Student(models.Model):
     # chandge name students in admin for human))
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)
-

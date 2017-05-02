@@ -11,36 +11,6 @@
 <!--suppress ALL -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <a href="{% url 'students_add' %}" class="btn btn-primary">Додати Студента</a>
 
             <!-- Start Students Listing-->
@@ -51,7 +21,7 @@
                 <tr>
                     <th>№</th>
                     <th>Студент</th>
-                    <th>Група</th>
+                    <th>Група&nbsp;(староста)</th>
                     <th>1<br>Ср</th>
                     <th>2<br>Чт</th>
                     <th>3<br>Пт</th>
@@ -90,11 +60,11 @@
                 {% for journal in journal %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a title="Редагувати" href="{% url 'students_edit' journal.id %}">{{ journal.student }}</a></td>
-                    <td><a title="Редагувати" href="{% url 'groups_edit' journal.id %}">{{ journal.group }}</a></td>
-                    <td><label><input type="checkbox"></label></td>
-                    <td><label><input type="checkbox"></label></td>
-                    <td><label><input type="checkbox"></label></td>
+                    <td>{{ journal.last_name}}&nbsp;{{journal.first_name }}</td>
+                    <td>{{ journal.student_group }}</td>
+                    <td><span class="glyphicon glyphicon-ok-sign"></span></td>
+                    <td><span class="glyphicon glyphicon-ok-circle"></span></td>
+                    <td><span class="glyphicon glyphicon-ok"></span></td>
                     <td><label><input type="checkbox"></label></td>
                     <td><label><input type="checkbox"></label></td>
                     <td><label><input type="checkbox"></label></td>
