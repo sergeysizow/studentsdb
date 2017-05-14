@@ -17,7 +17,6 @@ from ..models.students import Student
 from ..models.groups import Group
 
 
-
 # Views for Students
 
 def students_list(request):
@@ -97,22 +96,22 @@ def students_add(request):
                 errors['student_group'] = u"Оберіть групу для студента"
             else:
                 groups = Group.objects.filter(pk=student_group)
-                if len(groups) !=1:
+                if len(groups) != 1:
                     errors['student_group'] = u"Оберіть коректну групу"
                 else:
                     data['student_group'] = groups[0]
 
             photo = request.FILES.get('photo')
-            list = ('BMP', 'EPS', 'GIF', 'JPEG', 'PDF', 'PNG', 'PNM', 'TIFF')
-            img = Image.open(photo, 'r')
-            format = img.format
+            try:
+                img = Image.open(photo, 'r')
 
-            
+                if photo.size <= 2097152:
+                    data['photo'] = photo
+                else:
+                    errors['photo'] = u"Оберіть фото менше 2Mb"
 
-            if format in list:
-                data['photo'] = photo
-            else:
-                errors['photo'] = u"Завантажте фото"
+            except IOError:
+                errors['photo'] = u"Оберіть фото"
 
             # save student to database
             if not errors:
@@ -125,7 +124,7 @@ def students_add(request):
             else:
                 # render form with errors and previous user input
                 return render(request, 'students/students_add.html',
-                        {'groups': Group.objects.all().order_by('title'), 'errors': errors})
+                              {'groups': Group.objects.all().order_by('title'), 'errors': errors})
 
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
