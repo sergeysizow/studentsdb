@@ -110,7 +110,7 @@ def students_add(request):
                 else:
                     errors['photo'] = u"Оберіть фото менше 2Mb"
 
-            except IOError:
+            except:
                 errors['photo'] = u"Оберіть фото"
 
             # save student to database
@@ -119,7 +119,9 @@ def students_add(request):
                 student.save()
 
                 # redirect user to students_list
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(
+                    u'{}?status_message=Студента {} {} успішно додано!'.format(reverse('home'), first_name, last_name)
+                    )
 
             else:
                 # render form with errors and previous user input
@@ -128,7 +130,9 @@ def students_add(request):
 
         elif request.POST.get('cancel_button') is not None:
             # redirect to home page on cancel button
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(
+                u'%s?status_message=Додавання студента скасовано!' %
+                reverse('home'))
     else:
         # initial form render
         return render(request, 'students/students_add.html',
