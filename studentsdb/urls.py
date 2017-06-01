@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from students.views import students, groups, journal, exams
+from students.views import students, groups, journal, exams, contact_admin
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
 
@@ -42,6 +43,10 @@ urlpatterns = [
     # Other url
     url(r'^journal/$', journal.journal_list, name='journal'),
     url(r'^admin/', include(admin.site.urls)),
+
+    # Contact admin form
+    url(r'^contact-admin/$', contact_admin.contact_admin, name='contact_admin'),
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

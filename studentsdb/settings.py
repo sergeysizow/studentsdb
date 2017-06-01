@@ -115,5 +115,16 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
+# email settings
+# please, set here you SMTP server details and your admin email
+ADMIN_EMAIL = 'sergey_sizow@ukr.net'
+EMAIL_HOST = 'smtp-pulse.com'
+EMAIL_PORT = '2525'
+EMAIL_HOST_USER = 'sergey_sizow@ukr.net'
+EMAIL_HOST_PASSWORD = '5TW6mmefbepmc6j'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+
+
 
 
