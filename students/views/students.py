@@ -16,6 +16,8 @@ from ..models.students import Student
 
 from ..models.groups import Group
 
+from django.views.generic import UpdateView
+
 
 # Views for Students
 
@@ -139,8 +141,20 @@ def students_add(request):
                       {'groups': Group.objects.all().order_by('title')})
 
 
-def students_edit(request, sid):  # sid= student id
-    return HttpResponse('<h1>Edit Students %s</h1>' % sid)
+class StudentUpdateView(UpdateView):
+    model = Student
+    template_name = 'students/students_edit.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return u'%s?status_message=Студента успішно збережено!'%reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Редагування студнета відмінено!'%reverse('home'))
+        else:
+            return super(StudentUpdateView, self).post(request, *args, **kwargs)
+
 
 
 def students_delete(request, sid):
