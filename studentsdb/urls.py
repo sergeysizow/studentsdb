@@ -46,6 +46,7 @@ urlpatterns = [
 
     # Contact admin form
     url(r'^contact-admin/$', contact_admin.contact_admin, name='contact_admin'),
+   # url(r'^contact-admin/', include('contact_form.urls')),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

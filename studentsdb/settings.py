@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from studentsdb.security import EMAIL_HOST_PASSWORD
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'students',
+    #'contact_form',
+    #'django.contrib.sites',
     ]
 
 MIDDLEWARE = [
@@ -118,12 +122,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 # email settings
 # please, set here you SMTP server details and your admin email
 ADMIN_EMAIL = 'sergey_sizow@ukr.net'
-EMAIL_HOST = 'smtp-pulse.com'
-EMAIL_PORT = '2525'
-EMAIL_HOST_USER = 'sergey_sizow@ukr.net'
-EMAIL_HOST_PASSWORD = '5TW6mmefbepmc6j'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'sergeysizow1989@gmail.com'
+#EMAIL_HOST_PASSWORD = security.EMAIL_HOST_PASSWORD 
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = True
+
+#ADMINS = ('sergey', 'sergey_sizow@ukr.net') # email will be sent to your_email
+#MANAGERS = ADMINS
+
+#SITE_ID = 1
+
+#crispy settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 
