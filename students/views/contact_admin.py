@@ -1,5 +1,5 @@
 # _*_ coding: utf-8 _*_
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django import forms
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
@@ -10,6 +10,7 @@ from studentsdb.settings import ADMIN_EMAIL
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
+from django.views.generic.edit import FormView
 
 class ContactForm(forms.Form):
 
@@ -74,3 +75,38 @@ def contact_admin(request):
         form = ContactForm()
 
     return render(request, 'contact_admin/form.html', {'form': form})
+
+"""
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(required=True)
+    from_email = forms.EmailField(required=True)
+    message = forms.CharField(
+        required=True,
+        widget=forms.Textarea
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(ContactForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].label = u"Тема"
+        self.fields['from_email'].label = "Your email:"
+        self.fields['message'].label = "What do you want to say?"
+
+
+
+class ContactView (FormView):
+    template_name = 'contact_admin/form.html'
+    form_class = ContactForm
+    success_url = '/email-sent'
+
+
+    def form_valid(self, form):
+        subject = form.cleaned_data['subject']
+        message = form.cleaned_data['message']
+        from_email = form.cleaned_data['from_email']
+
+        send_mail(subject, message, from_email, [ADMIN_EMAIL])
+
+        return super(ContactView, self).form_valid(form)
+
+"""

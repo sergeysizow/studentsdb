@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from students.views import students, groups, journal, exams, contact_admin
-from students.views.students import StudentUpdateView
+from students.views.students import StudentUpdateView, StudentDeleteView
+#from students.views.contact_admin import ContactView
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,7 +29,7 @@ urlpatterns = [
     url(r'^$', students.students_list, name='home'),
     url(r'^students/add/$', students.students_add, name='students_add'),
     url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
-    url(r'^students/(?P<sid>\d+)/delete/$', students.students_delete, name='students_delete'),
+    url(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
 
     # Groups url
     url(r'^groups$', groups.groups_list, name='groups'),
@@ -47,7 +49,8 @@ urlpatterns = [
 
     # Contact admin form
     url(r'^contact-admin/$', contact_admin.contact_admin, name='contact_admin'),
-   # url(r'^contact-admin/', include('contact_form.urls')),
+    #url(r'^contact-admin/$', ContactView.as_view()),
+    #url(r'^contact-admin/$', include('contact_form.urls')),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

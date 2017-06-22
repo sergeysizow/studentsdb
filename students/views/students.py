@@ -16,7 +16,7 @@ from ..models.students import Student
 
 from ..models.groups import Group
 
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 
 # Views for Students
@@ -157,5 +157,11 @@ class StudentUpdateView(UpdateView):
 
 
 
-def students_delete(request, sid):
-    return HttpResponse('<h1>Delete Student %s</h1>' % sid)
+
+
+class StudentDeleteView (DeleteView):
+    model = Student
+    template_name = 'students/students_confirm_delete.html'
+
+    def get_success_url(self):
+       return u'%s?status_massage=Студента успішно видалено!' %reverse('home')
