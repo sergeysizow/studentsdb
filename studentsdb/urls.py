@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from students.views import students, groups, journal, exams, contact_admin
-from students.views.students import StudentUpdateView, StudentDeleteView
+from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
 #from students.views.contact_admin import ContactView
 
 from django.conf import settings
@@ -27,7 +27,7 @@ urlpatterns = [
 
     # Students url
     url(r'^$', students.students_list, name='home'),
-    url(r'^students/add/$', students.students_add, name='students_add'),
+    url(r'^students/add/$', StudentAddView.as_view(), name='students_add'),
     url(r'^students/(?P<pk>\d+)/edit/$', StudentUpdateView.as_view(), name='students_edit'),
     url(r'^students/(?P<pk>\d+)/delete/$', StudentDeleteView.as_view(), name='students_delete'),
 

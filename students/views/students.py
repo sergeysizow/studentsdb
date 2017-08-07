@@ -16,7 +16,7 @@ from ..models.students import Student
 
 from ..models.groups import Group
 
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from django.forms import ModelForm
 
@@ -171,6 +171,24 @@ class StudentUpdateForm(ModelForm):
         )
 
 
+class StudentAddView(CreateView):
+    model = Student
+    template_name = 'students/students_add.html'
+    fields = '__all__'
+    #form_class = StudentUpdateForm
+
+
+    def get_success_url(self):
+        self.object.save()
+        return u'%s?status_message=Студента успішно додано!'%reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Додавання студнета відмінено!'%reverse('home'))
+        else:
+            return super(StudentAddView, self).post(request, *args, **kwargs)
+
+
 class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'students/students_edit.html'
@@ -196,3 +214,9 @@ class StudentDeleteView (DeleteView):
 
     def get_success_url(self):
        return u'%s?status_massage=Студента успішно видалено!' %reverse('home')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get('cancel_button'):
+            return HttpResponseRedirect(u'%s?status_message=Видалення студнета відмінено!'%reverse('home'))
+        else:
+            return super(StudentDeleteView, self).post(request, *args, **kwargs)
