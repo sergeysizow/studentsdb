@@ -17,7 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from students.views import students, groups, journal, exams, contact_admin
 from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
-#from students.views.contact_admin import ContactView
+from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
+
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,9 +34,9 @@ urlpatterns = [
 
     # Groups url
     url(r'^groups$', groups.groups_list, name='groups'),
-    url(r'^groups/add/$', groups.groups_add, name='groups_add'),
-    url(r'^groups/(?P<gid>\d+)/edit/$', groups.groups_edit, name='groups_edit'),
-    url(r'^groups/(?P<gid>\d+)/delete/$', groups.groups_delete, name='groups_delete'),
+    url(r'^groups/add/$', GroupAddView.as_view(), name='groups_add'),
+    url(r'^groups/(?P<pk>\d+)/edit/$', GroupUpdateView.as_view(), name='groups_edit'),
+    url(r'^groups/(?P<pk>\d+)/delete/$', GroupDeleteView.as_view(), name='groups_delete'),
 
     # Exams url
     url(r'^exams$', exams.exams_list, name='exams'),
