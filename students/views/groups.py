@@ -1,6 +1,7 @@
 # _*_ coding: utf-8 _*_
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from django.shortcuts import render
 
@@ -15,6 +16,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm
 
 from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -90,6 +92,7 @@ class GroupAddView(SuccessMessageMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
+            messages.add_message(request, messages.INFO, u'Створення групи відмінено')
             return HttpResponseRedirect(u'%s?status_message=Створення групи відмінено!' % reverse('home'))
         else:
             return super(GroupAddView, self).post(request, *args, **kwargs)
@@ -130,10 +133,9 @@ class GroupUpdateView(SuccessMessageMixin, UpdateView):
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, title=self.object.title)
 
-
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            mess
+            messages.add_message(request, messages.INFO, u'Редагувння групи відмінено')
             return HttpResponseRedirect(u'%s?status_message=Редагування групи відмінено!' % reverse('groups'))
         else:
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
@@ -143,13 +145,17 @@ class GroupDeleteView(DeleteView):
     model = Group
     template_name = 'groups/groups_delete.html'
     form_class = GroupUpdateForm
-    success_url = 'groups'
+    success_url = reverse_lazy('groups')
+    success_message = u"Група успішно видалена"
 
-    def get_success_url(self):
-        return u'%s?status_massage=Групу успішно видалено!' % reverse('groups')
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(GroupDeleteView, self).delete(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Видалення групи відмінено!' % reverse('groups'))
+            messages.add_message(request, messages.INFO, u'Видалення групи відмінено')
+            return HttpResponseRedirect(reverse('groups'))
+
         else:
             return super(GroupDeleteView, self).post(request, *args, **kwargs)
