@@ -1,5 +1,7 @@
 # _*_ coding: utf-8 _*_
 
+from django.contrib.messages.views import SuccessMessageMixin
+
 from django.shortcuts import render
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -76,14 +78,15 @@ class GroupAddForm(ModelForm):
         ))
 
 
-class GroupAddView(CreateView):
+class GroupAddView(SuccessMessageMixin, CreateView):
     model = Group
     template_name = 'groups/groups_add.html'
     form_class = GroupAddForm
-    success_url = 'groups'
+    success_url = '/groups'
+    success_message = u"Група %(title)s успішно створена"
 
-    def get_success_url(self):
-        return u'%s?status_message=Групу успішно додано!' % reverse('groups')
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data, title=self.object.title)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
@@ -117,17 +120,20 @@ class GroupUpdateForm(ModelForm):
         ))
 
 
-class GroupUpdateView(UpdateView):
+class GroupUpdateView(SuccessMessageMixin, UpdateView):
     model = Group
     template_name = 'groups/groups_add.html'
     form_class = GroupUpdateForm
-    success_url = 'groups'
+    success_url = '/groups'
+    success_message = u"Група %(title)s успішно змінена"
 
-    def get_success_url(self):
-        return u'%s?status_message=Групу успішно змінено!' % reverse('groups')
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data, title=self.object.title)
+
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
+            mess
             return HttpResponseRedirect(u'%s?status_message=Редагування групи відмінено!' % reverse('groups'))
         else:
             return super(GroupUpdateView, self).post(request, *args, **kwargs)

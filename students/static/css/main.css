@@ -32,6 +32,21 @@ color: #555555;
 /* Form styles */
 textarea,
 select,
-input {
+input,
+messages {
     max-width: 300px;
 }
+
+
+.messages li.error { background-color: red; }
+
+.success {
+margin: 10;
+width: 85%;
+background-color: #ffffff;
+border: 1px solid #cccccc;
+height: 30px;
+line-height: 30px;
+color: #555555;
+}
+
