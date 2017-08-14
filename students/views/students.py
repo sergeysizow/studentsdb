@@ -1,10 +1,12 @@
 # _*_ coding: utf-8 _*_
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from django.shortcuts import render
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -199,33 +201,38 @@ class StudentUpdateForm(ModelForm):
         ))
 
 
-class StudentAddView(CreateView):
+class StudentAddView(SuccessMessageMixin, CreateView):
     model = Student
     template_name = 'students/students_add.html'
     form_class = StudentAddForm
-    success_url = 'home'
+    success_url = '/'
+    success_message = u"Студент %(last_name)s успішно створений"
 
-    def get_success_url(self):
-        return u'%s?status_message=Студента успішно додано!' % reverse('home')
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data, last_name=self.object.last_name)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Додавання студнета відмінено!' % reverse('home'))
+            messages.add_message(request, messages.INFO, u'Створення студента відмінено')
+            return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentAddView, self).post(request, *args, **kwargs)
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(SuccessMessageMixin, UpdateView):
     model = Student
     template_name = 'students/students_edit.html'
     form_class = StudentUpdateForm
+    success_url = '/'
+    success_message = u"Студент %(last_name)s успішно редактований"
 
-    def get_success_url(self):
-        return u'%s?status_message=Студента успішно збережено!' % reverse('home')
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(cleaned_data, last_name=self.object.last_name)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Редагування студнета відмінено!' % reverse('home'))
+            messages.add_message(request, messages.INFO, u'Редагування студента відмінено')
+            return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
 
@@ -233,12 +240,18 @@ class StudentUpdateView(UpdateView):
 class StudentDeleteView(DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
+    form_class = StudentUpdateForm
+    success_url = reverse_lazy('home')
+    success_message = u"Студента успішно видалено"
 
-    def get_success_url(self):
-        return u'%s?status_massage=Студента успішно видалено!' % reverse('home')
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(StudentDeleteView, self).delete(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            return HttpResponseRedirect(u'%s?status_message=Видалення студнета відмінено!' % reverse('home'))
+            messages.add_message(request, messages.INFO, u'Видалення студента відмінено')
+            return HttpResponseRedirect(reverse('home'))
+
         else:
             return super(StudentDeleteView, self).post(request, *args, **kwargs)

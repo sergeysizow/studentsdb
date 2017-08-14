@@ -27,7 +27,7 @@
 
 <a href="{% url 'exams_add' %}" class="btn btn-primary">Створити іспит</a>
 
-<!-- Start Students Listing-->
+<!-- Start Exams Listing-->
 <table class="table table-hover table-striped">
 
     {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
@@ -86,12 +86,12 @@
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'exams_edit' exams.title %}">Редагувати</a>
+                           href="{% url 'exams_edit' exams.id %}">Редагувати</a>
                     </li>
 
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'exams_delete' exams.title %}">Видалити</a>
+                           href="{% url 'exams_delete' exams.id %}">Видалити</a>
                     </li>
                 </ul>
             </div>

@@ -15,8 +15,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from django.forms import ModelForm
 
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -93,7 +92,7 @@ class GroupAddView(SuccessMessageMixin, CreateView):
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.add_message(request, messages.INFO, u'Створення групи відмінено')
-            return HttpResponseRedirect(u'%s?status_message=Створення групи відмінено!' % reverse('home'))
+            return HttpResponseRedirect(reverse('home'))
         else:
             return super(GroupAddView, self).post(request, *args, **kwargs)
 
@@ -136,7 +135,7 @@ class GroupUpdateView(SuccessMessageMixin, UpdateView):
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
             messages.add_message(request, messages.INFO, u'Редагувння групи відмінено')
-            return HttpResponseRedirect(u'%s?status_message=Редагування групи відмінено!' % reverse('groups'))
+            return HttpResponseRedirect(reverse('groups'))
         else:
             return super(GroupUpdateView, self).post(request, *args, **kwargs)
 

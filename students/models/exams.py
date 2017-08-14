@@ -5,7 +5,6 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-
 class Exam(models.Model):
     """ Examen model """
 
@@ -37,9 +36,10 @@ class Exam(models.Model):
         null=True,
         on_delete=models.PROTECT)
 
-    location =models.IntegerField(
-	verbose_name=u"Аудиторія",
-	null=False)
+    location = models.IntegerField(
+        verbose_name=u"Аудиторія",
+        null=False,
+        blank=False,)
 
     notes = models.TextField(
         blank=True,

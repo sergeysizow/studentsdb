@@ -18,6 +18,8 @@ from django.contrib import admin
 from students.views import students, groups, journal, exams, contact_admin
 from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
+from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
+from students.views.journal import JournalView
 
 
 from django.conf import settings
@@ -40,12 +42,12 @@ urlpatterns = [
 
     # Exams url
     url(r'^exams$', exams.exams_list, name='exams'),
-    url(r'^exams/add/$', exams.exams_add, name='exams_add'),
-    url(r'^exams/(?P<title>\w+)/edit/$', exams.exams_edit, name='exams_edit'),
-    url(r'^groups/(?P<title>\w+)/delete/$', exams.exams_delete, name='exams_delete'),
+    url(r'^exams/add/$', ExamAddView.as_view(), name='exams_add'),
+    url(r'^exams/(?P<pk>\d+)/edit/$', ExamUpdateView.as_view(), name='exams_edit'),
+    url(r'^exams/(?P<pk>\d+)/delete/$', ExamDeleteView.as_view(), name='exams_delete'),
 
     # Other url
-    url(r'^journal/$', journal.journal_list, name='journal'),
+    url(r'^journal/$', JournalView.as_view(), name='journal'),
     url(r'^admin/', include(admin.site.urls)),
 
     # Contact admin form

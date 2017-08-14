@@ -4,11 +4,14 @@ from django.shortcuts import render
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.views.generic.base import TemplateView
+
 from ..models.students import Student
+from  ..models.monthjournal import MonthJournal
 
 
     # Views for Journal
-
+"""
 def journal_list(request):
     journal = Student.objects.all()
 
@@ -42,3 +45,9 @@ def students_list(request):
         students = paginator.page(paginator.num_pages)
 
     return render(request, 'students/students_list.html', {'students': students})
+    """
+
+
+class JournalView(TemplateView):
+    template_name = 'journal/journal.html'
+
