@@ -9,7 +9,6 @@
 {% block menu_group %}
 
 
-
 <!--suppress ALL -->
 
 <div class="col-xs-4" id="group-selector">
@@ -102,7 +101,8 @@
 </table>
 <!-- End Students Listing-->
 {% endwith %}
-
+{% with object_list=students %}
 {% include 'includes/pagination.html' %}
+{% endwith %}
 
 {% endblock content %}

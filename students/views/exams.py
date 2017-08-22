@@ -14,13 +14,14 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
+from ..util import paginate
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 
+    # Views for Exams
 
-
-    # Views for Groups
 
 def exams_list(request):
     exams = Exam.objects.all()
@@ -38,18 +39,9 @@ def exams_list(request):
 
     # paginator groups
 
-    paginator = Paginator(exams, 3)
-    page = request.GET.get('page')
-    try:
-        exams = paginator.page(page)
-    except PageNotAnInteger:
-        # If page not integer, deliver first page
-        exams = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range, deliver last page of results
-        exams = paginator.page(paginator.num_pages)
+    context = paginate(exams, 3, request, {}, var_name='exams')
 
-    return render(request, 'exams/exams_list.html', {'exams': exams})
+    return render(request, 'exams/exams_list.html', context)
 
 
 class ExamAddForm(ModelForm):

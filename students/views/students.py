@@ -8,6 +8,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
+from .. util import paginate
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from datetime import datetime
@@ -45,18 +47,10 @@ def students_list(request):
 
     # paginator students
 
-    paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        # If page not integer, deliver first page
-        students = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range, deliver last page of results
-        students = paginator.page(paginator.num_pages)
+    context = paginate(students, 5, request, {}, var_name='students')
 
-    return render(request, 'students/students_list.html', {'students': students})
+    return render(request, 'students/students_list.html', context)
+
 
 """
 
@@ -151,11 +145,11 @@ def students_add(request):
 
 """
 
+
 class StudentAddForm(ModelForm):
     class Meta:
         model = Student
         fields = ['first_name', 'middle_name', 'last_name', 'birthday', 'photo', 'ticket', 'student_group', 'notes']
-
 
     def __init__(self, *args, **kwargs):
         super(StudentAddForm, self).__init__(*args, **kwargs)

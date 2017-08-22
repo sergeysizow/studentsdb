@@ -1,6 +1,9 @@
 {% extends "students/base.html" %}
 
 {% load static from staticfiles %}
+{% with object_list=students %}
+
+{% endwith %}
 
 {% block meta_title %}Студенти{% endblock meta_title %}
 
@@ -104,8 +107,6 @@
 </table>
 <!-- End Students Listing-->
 {% endwith %}
-
-{% include 'includes/pagination.html' %}
-
+{% include "includes/pagination.html" %}
 {% endblock content %}
 

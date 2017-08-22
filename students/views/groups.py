@@ -17,13 +17,14 @@ from django.forms import ModelForm
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
+from .. util import paginate
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 
-
-
     # Views for Groups
+
 
 def groups_list(request):
     groups = Group.objects.all()
@@ -40,7 +41,10 @@ def groups_list(request):
         groups = groups.order_by('title')
 
     # paginator groups
+    context = paginate(groups, 5, request, {}, var_name='groups')
 
+    return render(request, 'groups/groups_list.html', context)
+"""
     paginator = Paginator(groups, 2)
     page = request.GET.get('page')
     try:
@@ -53,7 +57,7 @@ def groups_list(request):
         groups = paginator.page(paginator.num_pages)
 
     return render(request, 'groups/groups_list.html', {'groups': groups})
-
+    """
 
 class GroupAddForm(ModelForm):
     class Meta:
