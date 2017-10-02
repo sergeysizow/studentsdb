@@ -56,6 +56,6 @@ class Student(models.Model):
         null=True,
         on_delete=models.PROTECT)
 
-    # chandge name students in admin for human))
+    # change name students in admin for human))
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)

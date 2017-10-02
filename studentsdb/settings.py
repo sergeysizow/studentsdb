@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from studentsdb.security import EMAIL_HOST_PASSWORD
 from django.contrib.messages import constants as messages
+from db import DATABASES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages', 
                 'studentsdb.context_processors.students_proc', #new function
+                'students.context_processors.groups_processor',
             ],
         },
     },
@@ -76,8 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'studentsdb.wsgi.application'
 
-
-from db import DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

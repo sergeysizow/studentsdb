@@ -6,22 +6,6 @@
 
 {% block title %}Список Екзаменів{% endblock title %}
 
-{% block menu_group %}
-
-
-<!--suppress ALL -->
-
-<div class="col-xs-4" id="group-selector">
-    <strong>Група:</strong>
-    <select>
-        <option value=””>Усі Студенти</option>
-        <option value=””>Трамп Д. (453)</option>
-        <option value=””>Путін Володя (No 2123)</option>
-    </select>
-</div>
-
-{% endblock menu_group %}
-
 {% block content %}
 
 <a href="{% url 'exams_add' %}" class="btn btn-primary">Створити іспит</a>

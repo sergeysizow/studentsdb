@@ -47,17 +47,17 @@ urlpatterns = [
     url(r'^exams/(?P<pk>\d+)/delete/$', ExamDeleteView.as_view(), name='exams_delete'),
 
     # Other url
-    url(r'^journal/$', JournalView.as_view(), name='journal'),
+    url(r'^journal/(?P<pk>\d+)?/?$', JournalView.as_view(), name='journal'),
     url(r'^admin/', include(admin.site.urls)),
 
     # Contact admin form
     url(r'^contact-admin/$', contact_admin.contact_admin, name='contact_admin'),
-    #url(r'^contact-admin/$', ContactView.as_view()),
-    #url(r'^contact-admin/$', include('contact_form.urls')),
+    # url(r'^contact-admin/$', ContactView.as_view()),
+    # url(r'^contact-admin/$', include('contact_form.urls')),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
-    #serve files from media folder
+    # serve files from media folder
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

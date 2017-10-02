@@ -7,7 +7,7 @@ class MonthJournal(models.Model):
 
     class Meta:
         verbose_name = u'Місячний Журнал'
-        verbose_name_plural = u'Місячні Журнали'
+        verbose_name_plural = u'Місячні Журнали Відвідування'
 
     student = models.ForeignKey(
         'Student',

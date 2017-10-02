@@ -50,6 +50,15 @@ line-height: 30px;
 color: #555555;
 }
 
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
+/* Journal Table Styles */
+td.day-box,
+th.day-header {
+    padding: 4px !important;
+    vertical-align: middle !important;
+    text-align: center;
 }
+
+#ajax-progress-indicator{
+    display: none;
+}
+

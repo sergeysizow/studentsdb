@@ -3,9 +3,8 @@ from datetime import date, datetime
 from django.core.urlresolvers import reverse
 from dateutil.relativedelta import relativedelta
 from calendar import monthrange, weekday, day_abbr
-from django.shortcuts import render
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
+from django.contrib import messages
 
 from django.views.generic.base import TemplateView
 
@@ -26,7 +25,7 @@ class JournalView(TemplateView):
 
         # check if we need to display some specific month
         if self.request.GET.get('month'):
-            month = datetime.strptime(self.request.GET['month'], '%Y- %m - %d').date()
+            month = datetime.strptime(self.request.GET['month'], '%Y -%m -%d').date()
         else:
             # otherwise just displaying current month data
             today = datetime.today()
@@ -47,12 +46,17 @@ class JournalView(TemplateView):
         # journal table header elements
         myear, mmonth = month.year, month.month
         number_of_days = monthrange(myear, mmonth)[1]
-        context['month_header'] = [{'day': d, 'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
-
+        context['month_header'] = [{'day': d,
+                                    'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
                                    for d in range(1, number_of_days + 1)]
 
-        # витягуємо усіх студентів посортованих по
-        queryset = Student.objects.order_by('last_name')
+        # get all students from database, or just one if we need to
+        # display journal for one student
+        if kwargs.get('pk'):
+            queryset=[Student.objects.get(pk=kwargs['pk'])]
+        else:
+            # витягуємо усіх студентів посортованих по прізвищу
+            queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
         # робитимемо його на цю ж в’юшку; в’юшка журналу
@@ -77,8 +81,8 @@ class JournalView(TemplateView):
             days = []
             for day in range(1, number_of_days + 1):
                 days.append({'day': day,
-                             'present': journal and getattr(journal, 'present_day % d' % day, False) or False,
-                             'date': date(myear, mmonth, day).strftime('%Y -%m -%d')})
+                             'present': journal and getattr(journal, 'present_day%d' % day, False) or False,
+                             'date': date(myear, mmonth, day).strftime('-%Y -%m -%d')})
 
             # prepare metadata for current student
             students.append({
@@ -87,46 +91,124 @@ class JournalView(TemplateView):
                 'id': student.id,
                 'update_url': update_url, })
 
-            # apply pagination, 10 students per page
-            context = paginate(students, 10, self.request, context,
-                               var_name='students')
-            # finally return updated context
-            # with paginated students
-            return context
+        # apply pagination, 10 students per page
+        context = paginate(students, 5, self.request, context, var_name='students')
+        # finally return updated context
+        # with paginated students
+        return context
+
+    def post(self, request, *args, **kwargs):
+        data = request.POST
+
+        # prepare student, dates and present data
+        current_date = datetime.strptime(data['date'], '-%Y -%m -%d').date()
+        month = date(current_date.year, current_date.month, 1)
+        present = data['present'] and True or False
+        student = Student.objects.get(pk=data['pk'])
+
+        # get, or create journal objects for given student and month
+        journal = MonthJournal.objects.get_or_create(student=student, date=month)[0]
+
+        # set new presence on journal for given student and save results
+        setattr(journal, 'present_day%d' % current_date.day, present)
+        journal.save()
+        messages.add_message(request, messages.SUCCESS, u'Збережено зміни до Журналу Відвідування')
+
+        # return success status
+        return JsonResponse({'status': 'success'})
 
 
-"""
-def journal_list(request):
-    journal = Student.objects.all()
+'''
 
-    return render(request, 'students/journal_list.html', {'journal': journal})
+def get_context_data(self, **kwargs):
 
-def students_list(request):
-    students = Student.objects.all()
+        # get context from TemplateView class:
+        context = super(JournalView,self).get_context_data(**kwargs)
 
-    # try to order students list
+        # chek if we need to display some specific month:
+        if self.request.GET.get('month'):
+            month = datetime.strptime(self.request.GET['month'],'%Y-%m-%d').date()
+        else:
+            # otherwise just displaying current month data:
+            today = datetime.today()
+            month = date(today.year, today.month, 1)
 
-    order_by = request.GET.get('order_by', '')
-    if order_by in ('last_name', 'first_name', 'ticket'):
-        students = students.order_by(order_by)
-        if request.GET.get('reverse', '') == '1':
-            students = students.reverse()
+        # calculate current year, next and previus month detail for month navigayion element in template:
+        next_month = month + relativedelta(months=1)
+        prev_month = month - relativedelta(months=1)
+        context['prev_month'] = prev_month.strftime('%Y-%m-%d')
+        context['next_month'] = next_month.strftime('%Y-%m-%d')
+        context['year'] = month.year
+        context['month_verbose'] = month.strftime('%B')
 
-    else:
-        students = students.order_by('last_name')
+        # variable for students pagination:
+        context['cur_month'] = month.strftime('%Y-%m-%d')
 
-    # paginator students
+        # variable dor template to generate journal table header elements:
+        myear, mmonth = month.year, month.month
+        number_of_days = monthrange(myear, mmonth)[1]
+        context['month_header'] = [{
+            'day': d,
+            'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
+            for d in range(1, number_of_days+1)]
 
-    paginator = Paginator(students, 3)
-    page = request.GET.get('page')
-    try:
-        students = paginator.page(page)
-    except PageNotAnInteger:
-        # If page not integer, deliver first page
-        students = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range, deliver last page of results
-        students = paginator.page(paginator.num_pages)
+        # extract one student from database, or all students and ordered by last name:
 
-    return render(request, 'students/students_list.html', {'students': students})
-    """
+        queryset = Student.objects.order_by('last_name')
+
+        # url to update student presence, for form post:
+        update_url = reverse('journal')
+
+        # collect necressary data for all students:
+        students = []
+        for student in queryset:
+
+            # try to get journal object by month selected and current student:
+            try:
+                journal = MonthJournal.objects.get(student=student, date=month)
+            except Exception:
+                journal = None
+
+            # colect days for current student:
+            days = []
+            for day in range(1,number_of_days+1):
+                days.append({
+                    'day': day,
+                    'present': journal and getattr(journal, 'present_day%d' % day, False) or False,
+                    'date': date(myear, mmonth, day).strftime('%Y-%m-%d'),
+                })
+
+            # collect the rest data for student:
+            students.append({
+                'fullname': u"%s %s" % (student.last_name, student.first_name),
+                'days': days,
+                'id': student.id,
+                'update_url': update_url,
+            })
+
+        # apply pagination for students list:
+        context = paginate(students, 5, self.request, context, var_name='students')
+
+        # return update dictionary:
+        return context
+
+def post(self, request, *args, **kwargs):
+    data = request.POST
+
+    # prepare student, dates and presence data
+    current_date = datetime.strptime(data['date'], '%Y-%m-%d').date()
+    month = date(current_date.year, current_date.month, 1)
+    present = data['present'] and True or False
+    student = Student.objects.get(pk=data['pk'])
+
+    # get or create journal object for given student and month
+    journal = MonthJournal.objects.get_or_create(student=student, date=month)[0]
+
+    # set new presence on journal for given student and save result
+    setattr(journal, 'present_day%d' % current_date.day, present)
+    journal.save()
+
+    # return success status
+
+    return JsonResponse({'status':'success'})
+'''
