@@ -17,7 +17,7 @@ from django.forms import ModelForm
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
-from .. util import paginate
+from .. util import paginate, get_current_group
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -27,7 +27,14 @@ from crispy_forms.bootstrap import FormActions
 
 
 def groups_list(request):
-    groups = Group.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    print (current_group)
+    if current_group:
+        groups = Group.objects.filter(id=current_group.id)
+    else:
+        # otherwise show all students
+        groups = Group.objects.all()
 
     # try to order groups list
 

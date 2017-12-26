@@ -14,17 +14,23 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
-from ..util import paginate
+from ..util import paginate, get_current_group
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from crispy_forms.bootstrap import FormActions
 
-    # Views for Exams
+# Views for Exams
 
 
 def exams_list(request):
-    exams = Exam.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    if current_group:
+        exams = Exam.objects.filter(student_group=current_group)
+    else:
+        # otherwise show all students
+        exams = Exam.objects.all()
 
     # try to order exams list
 

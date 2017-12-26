@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.core.urlresolvers import reverse, reverse_lazy
 
-from .. util import paginate
+from .. util import paginate, get_current_group
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -26,17 +26,23 @@ from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.bootstrap import FormActions, AppendedText
 
 
 # Views for Students
 
 def students_list(request):
-    students = Student.objects.all()
+    # check if we need to show only one group of students
+    current_group = get_current_group(request)
+    if current_group:
+        students = Student.objects.filter(student_group=current_group)
+    else:
+        # otherwise show all students
+        students = Student.objects.all()
 
     # try to order students list
-
     order_by = request.GET.get('order_by', '')
+
     if order_by in ('last_name', 'first_name', 'ticket'):
         students = students.order_by(order_by)
         if request.GET.get('reverse', '') == '1':
@@ -187,12 +193,15 @@ class StudentUpdateForm(ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control_label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.field_class = 'col-sm-3'
 
         self.helper.layout.append(FormActions(
             Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
             Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
         ))
+
+        self.helper.layout[3] = AppendedText('birthday',
+                                             '<span class="glyphicon glyphicon-calendar"></span>', active=True)
 
 
 class StudentAddView(SuccessMessageMixin, CreateView):

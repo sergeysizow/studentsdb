@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 
 from ..models.students import Student
 from ..models.monthjournal import MonthJournal
-from ..util import paginate
+from ..util import paginate, get_current_group
 
 
 # Views for Journal
@@ -53,10 +53,13 @@ class JournalView(TemplateView):
         # get all students from database, or just one if we need to
         # display journal for one student
         if kwargs.get('pk'):
-            queryset=[Student.objects.get(pk=kwargs['pk'])]
+            queryset = [Student.objects.get(pk=kwargs['pk'])]
         else:
-            # витягуємо усіх студентів посортованих по прізвищу
-            queryset = Student.objects.all().order_by('last_name')
+            current_group = get_current_group(self.request)
+            if current_group:
+                queryset = Student.objects.filter(student_group=current_group).order_by('last_name')
+            else:
+                queryset = Student.objects.all().order_by('last_name')
 
         # це адреса для посту AJAX запиту, як бачите, ми
         # робитимемо його на цю ж в’юшку; в’юшка журналу
