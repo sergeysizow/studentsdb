@@ -65,6 +65,12 @@ function initDateFields() {
         $(this).blur();
     });
 
+    $('input.datetimeinput').datetimepicker({
+        locale: 'uk'
+    }).on('dp.hide', function(event){
+        $(this).blur();
+    });
+
 }
 
 

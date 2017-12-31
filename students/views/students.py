@@ -168,12 +168,15 @@ class StudentAddForm(ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control_label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.field_class = 'col-sm-3'
 
         self.helper.layout.append(FormActions(
             Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
             Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
         ))
+
+        self.helper.layout[3] = AppendedText('birthday',
+                                             '<span class="glyphicon glyphicon-calendar"></span>', active=True)
 
 
 class StudentUpdateForm(ModelForm):

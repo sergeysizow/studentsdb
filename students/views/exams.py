@@ -18,7 +18,7 @@ from ..util import paginate, get_current_group
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.bootstrap import FormActions, AppendedText
 
 # Views for Exams
 
@@ -66,12 +66,15 @@ class ExamAddForm(ModelForm):
         self.helper.help_text_inline = True
         self.helper.html5_required = True
         self.helper.label_class = 'col-sm-2 control_label'
-        self.helper.field_class = 'col-sm-10'
+        self.helper.field_class = 'col-sm-3'
 
         self.helper.layout.append(FormActions(
             Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
             Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
         ))
+
+        self.helper.layout[1] = AppendedText('date',
+                                             '<span class="glyphicon glyphicon-calendar"></span>', active=True)
 
 
 class ExamAddView(SuccessMessageMixin, CreateView):
