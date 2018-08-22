@@ -1,5 +1,6 @@
 # _*_ coding: utf-8 _*_
 from django.db import models
+from .students import Student
 
 
 class MonthJournal(models.Model):
@@ -10,7 +11,7 @@ class MonthJournal(models.Model):
         verbose_name_plural = u'Місячні Журнали Відвідування'
 
     student = models.ForeignKey(
-        'Student',
+        Student,
         verbose_name=u'Студент',
         blank=False,
         unique_for_month='date')

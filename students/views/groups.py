@@ -66,6 +66,7 @@ def groups_list(request):
     return render(request, 'groups/groups_list.html', {'groups': groups})
     """
 
+
 class GroupAddForm(ModelForm):
     class Meta:
         model = Group

@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from .students import Student
 
 
 class Group(models.Model):
@@ -20,7 +21,7 @@ class Group(models.Model):
         verbose_name=u"Назва")
 
     leader = models.OneToOneField(
-        'Student',
+        Student,
         verbose_name=u"Староста",
         blank=True,
         null=True,

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'students',
     #'contact_form',
     #'django.contrib.sites',
+    #'students.colorize',
     ]
 
 MIDDLEWARE = [
@@ -126,12 +127,12 @@ ADMIN_EMAIL = 'sergey_sizow@ukr.net'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '465'
 EMAIL_HOST_USER = 'sergeysizow1989@gmail.com'
-#EMAIL_HOST_PASSWORD = security.EMAIL_HOST_PASSWORD 
+#EMAIL_HOST_PASSWORD = studentsdb.security.EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-#ADMINS = ('sergey', 'sergey_sizow@ukr.net') # email will be sent to your_email
-#MANAGERS = ADMINS
+ADMINS = [('sergey', 'sergey_sizow@ukr.net'), ('Sergey', 'sergeysizow1989@gmail.com')] # email will be sent to your_email
+MANAGERS = ADMINS
 
 #SITE_ID = 1
 
@@ -148,4 +149,60 @@ MESSAGE_TAGS = {
 }
 
 
+# LOGGING
+LOG_FILE = os.path.join(BASE_DIR, 'studentsdb.log')
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s: %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'students.colorize.ColorizingStreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILE,
+            'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'students.signals': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'students.views.contact_admin': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+
+    },
+}

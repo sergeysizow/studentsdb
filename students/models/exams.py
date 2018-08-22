@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from .groups import Group
 
 
 class Exam(models.Model):
@@ -30,7 +31,7 @@ class Exam(models.Model):
         verbose_name=u"Викладач")
   
     student_group = models.ForeignKey(
-        'Group',
+        Group,
         verbose_name=u"Група",
         blank=False,
         null=True,
@@ -45,7 +46,7 @@ class Exam(models.Model):
         blank=True,
         verbose_name=u"Додаткові нотатки")
 
-    # chandge name examens in admin for human))
+    # change name examens in admin for human))
     def __unicode__(self):
         return u"%s %s" % (self.title, self.student_group)
 

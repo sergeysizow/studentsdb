@@ -4,6 +4,7 @@ from django import forms
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+import logging
 
 from studentsdb.settings import ADMIN_EMAIL
 
@@ -65,6 +66,8 @@ def contact_admin(request):
                 send_mail(subject, message, from_email, [ADMIN_EMAIL])
             except Exception:
                 message = u'Під час відправки листа сталась помилка, спробуйте скористатись даною формою пізніше'
+                logger = logging.getLogger(__name__)
+                logger.exception(message)
             else:
                 message = u'Повідомлення успішно відправлено'
         #redirect to some contact page with success message

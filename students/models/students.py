@@ -3,12 +3,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
+#from .groups import Group
 
 
 class Student(models.Model):
     """ Students model """
 
-    # user-frendly name in admin
+    # user-friendly name in admin
 
     class Meta(object):
         verbose_name = u"Студент",

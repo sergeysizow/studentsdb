@@ -195,8 +195,8 @@ class StudentUpdateForm(ModelForm):
 
         self.helper.help_text_inline = True
         self.helper.html5_required = True
-        self.helper.label_class = 'col-sm-2 control_label'
-        self.helper.field_class = 'col-sm-3'
+        self.helper.label_class = 'col-sm-4 control_label'
+        self.helper.field_class = 'col-sm-5'
 
         self.helper.layout.append(FormActions(
             Submit('add_button', u'Зберегти', css_class='btn btn-primary'),

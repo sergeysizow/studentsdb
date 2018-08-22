@@ -81,7 +81,7 @@ class ExamAddView(SuccessMessageMixin, CreateView):
     model = Exam
     template_name = 'exams/exams_add.html'
     form_class = ExamAddForm
-    #success_url = '/exams'
+    success_url = '/exams'
     success_message = u"Екзамен %(title)s успішно створено"
 
     def get_success_message(self, cleaned_data):

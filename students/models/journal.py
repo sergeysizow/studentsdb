@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from .students import Student
+from .groups import Group
 
 import calendar
 
@@ -19,14 +21,14 @@ class Journal(models.Model):
         verbose_name_plural = u"Журнали"
 
     name = models.ForeignKey(
-        'Student',
+        Student,
         verbose_name=u"Студент",
         blank=False,
         null=False,
     )
 
     group = models.OneToOneField(
-        'Group',
+        Group,
         verbose_name=u"Група",
         blank=False,
         null=False,
@@ -37,6 +39,6 @@ class Journal(models.Model):
             verbose_name=u"дата",
             default=True)
 
-    # chandge name in admin for human))
+    # change name in admin for human))
     def __unicode__(self):
         return u"%s %s" % (self.name, self.group)
