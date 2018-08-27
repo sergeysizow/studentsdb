@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
 
 from students.views import students, groups, journal, exams, contact_admin
 from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
@@ -26,7 +27,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
 
     # Students url
     url(r'^$', students.students_list, name='home'),
@@ -56,7 +57,7 @@ urlpatterns = [
     # url(r'^contact-admin/$', include('contact_form.urls')),
 
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     # serve files from media folder

@@ -1,0 +1,36 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-27 16:45+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: studentsdb/students/templates/students/base.html:9
+#: studentsdb/students/templates/students/base.html:34
+#: studentsdb/students/templates/students/base.html:94
+msgid "Students Accounting Service"
+msgstr ""
+
+#: studentsdb/students/templates/students/base.html:10
+msgid "App to manage students database"
+msgstr ""
+
+#: studentsdb/students/templates/students/base.html:42
+msgid "Group:"
+msgstr ""
+
+#: studentsdb/students/templates/students/base.html:44
+msgid "All Students"
+msgstr ""

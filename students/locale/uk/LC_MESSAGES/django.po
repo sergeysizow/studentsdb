@@ -1,0 +1,272 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-27 22:16+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: studentsdb/students/templates/contact_admin/form.html:7
+#: studentsdb/students/templates/contact_admin/form.html:9
+msgid "Connect with admin"
+msgstr "Звʼязок з адміністратором"
+
+#: studentsdb/students/templates/contact_admin/form.html:14
+msgid "Correct the mistakes"
+msgstr "Виправте помилки"
+
+#: studentsdb/students/templates/exams/exams_add.html:8
+msgid "Add Exam"
+msgstr "Додати Екзамен"
+
+#: studentsdb/students/templates/exams/exams_delete.html:6
+#: studentsdb/students/templates/exams/exams_delete.html:8
+msgid "Exam Delete"
+msgstr "Видалити Екзамен"
+
+#: studentsdb/students/templates/exams/exams_delete.html:15
+msgid "Are you really wont delete this exam"
+msgstr "Ви дійстно хочете видалити цей екзамен"
+
+#: studentsdb/students/templates/exams/exams_delete.html:16
+#: studentsdb/students/templates/groups/groups_delete.html:16
+#: studentsdb/students/templates/students/students_confirm_delete.html:16
+msgid "Yes"
+msgstr "Так"
+
+#: studentsdb/students/templates/exams/exams_delete.html:18
+#: studentsdb/students/templates/groups/groups_delete.html:18
+#: studentsdb/students/templates/students/students_confirm_delete.html:18
+msgid "No"
+msgstr "Ні"
+
+#: studentsdb/students/templates/exams/exams_edit.html:8
+#: studentsdb/students/templates/exams/exams_edit.html:10
+msgid "Exam Edit"
+msgstr "Редагувати екзамен"
+
+#: studentsdb/students/templates/exams/exams_list.html:6
+#: studentsdb/students/templates/students/base.html:64
+msgid "Exams"
+msgstr "Екзамени"
+
+#: studentsdb/students/templates/exams/exams_list.html:8
+msgid "Exams List"
+msgstr "Список Екзаменів"
+
+#: studentsdb/students/templates/exams/exams_list.html:13
+msgid "Make exam"
+msgstr "Створити Екзамен"
+
+#: studentsdb/students/templates/exams/exams_list.html:24
+msgid "Title"
+msgstr "Назва"
+
+#: studentsdb/students/templates/exams/exams_list.html:31
+msgid "Data"
+msgstr "Дата"
+
+#: studentsdb/students/templates/exams/exams_list.html:38
+#: studentsdb/students/templates/groups/groups_list.html:27
+msgid "Group"
+msgstr "Групи"
+
+#: studentsdb/students/templates/exams/exams_list.html:43
+msgid "Teacher"
+msgstr "Викладач"
+
+#: studentsdb/students/templates/exams/exams_list.html:47
+msgid "Location"
+msgstr "Аудиторія"
+
+#: studentsdb/students/templates/exams/exams_list.html:52
+#: studentsdb/students/templates/groups/groups_list.html:39
+#: studentsdb/students/templates/students/students_list.html:47
+msgid "Actions"
+msgstr "Дії"
+
+#: studentsdb/students/templates/exams/exams_list.html:67
+#: studentsdb/students/templates/groups/groups_list.html:53
+#: studentsdb/students/templates/students/students_list.html:67
+msgid "Action"
+msgstr "Дія"
+
+#: studentsdb/students/templates/exams/exams_list.html:74
+#: studentsdb/students/templates/groups/groups_list.html:48
+#: studentsdb/students/templates/groups/groups_list.html:49
+#: studentsdb/students/templates/groups/groups_list.html:65
+#: studentsdb/students/templates/journal/journal.html:69
+#: studentsdb/students/templates/students/students_list.html:61
+#: studentsdb/students/templates/students/students_list.html:62
+msgid "Edit"
+msgstr "Редагувати"
+
+#: studentsdb/students/templates/exams/exams_list.html:79
+#: studentsdb/students/templates/groups/groups_list.html:70
+#: studentsdb/students/templates/students/students_list.html:84
+msgid "Delete"
+msgstr "Видалити"
+
+#: studentsdb/students/templates/groups/groups_add.html:8
+#: studentsdb/students/templates/groups/groups_add.html:10
+#: studentsdb/students/templates/groups/groups_list.html:14
+msgid "Add Group"
+msgstr "Додати Групу"
+
+#: studentsdb/students/templates/groups/groups_delete.html:6
+#: studentsdb/students/templates/groups/groups_delete.html:8
+msgid "Delete Group"
+msgstr "Видалити Групу"
+
+#: studentsdb/students/templates/groups/groups_delete.html:15
+msgid "Are you really wont delete this group"
+msgstr "Ви дійсно хочете видалити цю групу"
+
+#: studentsdb/students/templates/groups/groups_list.html:6
+#: studentsdb/students/templates/students/base.html:63
+msgid "Groups"
+msgstr "Групи"
+
+#: studentsdb/students/templates/groups/groups_list.html:8
+msgid "Students Group"
+msgstr "Групи Студентів"
+
+#: studentsdb/students/templates/groups/groups_list.html:33
+msgid "Leader"
+msgstr "Викладач"
+
+#: studentsdb/students/templates/groups/groups_list.html:60
+#: studentsdb/students/templates/students/base.html:62
+msgid "Visiting"
+msgstr "Відвідування"
+
+#: studentsdb/students/templates/journal/journal.html:6
+#: studentsdb/students/templates/journal/journal.html:8
+#: studentsdb/students/templates/students/journal_list.html:8
+msgid "Journal Of Students Visiting"
+msgstr "Журнал Відвідування Студенів"
+
+#: studentsdb/students/templates/journal/journal.html:15
+msgid "There are any student in the base"
+msgstr "Немає жодного студента в базі"
+
+#: studentsdb/students/templates/journal/journal.html:16
+msgid "add"
+msgstr "додати"
+
+#: studentsdb/students/templates/journal/journal.html:16
+msgid "one"
+msgstr "один"
+
+#: studentsdb/students/templates/journal/journal.html:21
+msgid ""
+"Changes to the journal are saved automatically with each click in the cell "
+"of the table"
+msgstr "Зміни в журналі зберігаються автоматично після кожного кліку по клітинці"
+
+#: studentsdb/students/templates/journal/journal.html:22
+msgid "Save..."
+msgstr "Зберігання..."
+
+#: studentsdb/students/templates/journal/journal.html:27
+msgid "Previous month"
+msgstr "Попередній місяць"
+
+#: studentsdb/students/templates/journal/journal.html:31
+msgid "Next month"
+msgstr "Наступний місяць"
+
+#: studentsdb/students/templates/journal/journal.html:41
+msgid "Student"
+msgstr "Студент"
+
+#: studentsdb/students/templates/students/base.html:9
+#: studentsdb/students/templates/students/base.html:34
+#: studentsdb/students/templates/students/base.html:94
+msgid "Students Accounting Service"
+msgstr "Сервіс Обліку Студентів"
+
+#: studentsdb/students/templates/students/base.html:10
+msgid "App to manage students database"
+msgstr "Оперувати базою студентів"
+
+#: studentsdb/students/templates/students/base.html:42
+msgid "Group:"
+msgstr "Групи:"
+
+#: studentsdb/students/templates/students/base.html:44
+msgid "All Students"
+msgstr "Всі студенти"
+
+#: studentsdb/students/templates/students/base.html:61
+#: studentsdb/students/templates/students/students_list.html:9
+msgid "Students"
+msgstr "Студенти"
+
+#: studentsdb/students/templates/students/base.html:65
+msgid "Contact"
+msgstr "Звʼязок"
+
+#: studentsdb/students/templates/students/journal_list.html:6
+#: studentsdb/students/templates/students/students_list.html:74
+msgid "Journal"
+msgstr "Журнал"
+
+#: studentsdb/students/templates/students/journal_list.html:15
+#: studentsdb/students/templates/students/students_add.html:8
+#: studentsdb/students/templates/students/students_add.html:10
+#: studentsdb/students/templates/students/students_list.html:15
+msgid "Add Student"
+msgstr "Додати студента"
+
+#: studentsdb/students/templates/students/students_add.html:16
+#: studentsdb/students/templates/students/students_edit.html:16
+msgid "Correct the mistakes, please"
+msgstr "Виправте помилки, будь-ласка"
+
+#: studentsdb/students/templates/students/students_confirm_delete.html:6
+#: studentsdb/students/templates/students/students_confirm_delete.html:8
+msgid "Deleting Student"
+msgstr "Видалити студента"
+
+#: studentsdb/students/templates/students/students_confirm_delete.html:15
+msgid "Are you really wont delete this student"
+msgstr "Ви дійсно хочете видалити цього студенета"
+
+#: studentsdb/students/templates/students/students_edit.html:8
+#: studentsdb/students/templates/students/students_edit.html:10
+msgid "Students Edit"
+msgstr "Редагувати студента"
+
+#: studentsdb/students/templates/students/students_list.html:11
+msgid "Students List"
+msgstr "Список студентів"
+
+#: studentsdb/students/templates/students/students_list.html:25
+msgid "Photo"
+msgstr "Фото"
+
+#: studentsdb/students/templates/students/students_list.html:28
+msgid "Name"
+msgstr "Імʼя"
+
+#: studentsdb/students/templates/students/students_list.html:35
+msgid "Last Name"
+msgstr "Прізвище"
+
+#: studentsdb/students/templates/students/students_list.html:42
+msgid "Ticket"
+msgstr "Квиток"

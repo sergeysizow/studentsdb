@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -102,9 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'uk-ua'
+LANGUAGE_CODE = 'uk'
 
-TIME_ZONE = 'Europe/Kiev'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -118,7 +119,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOCALE_PATH = [os.path.join(BASE_DIR, 'studentsdb/students/locale')]
+
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
 
 # email settings
@@ -131,7 +135,7 @@ EMAIL_HOST_USER = 'sergeysizow1989@gmail.com'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-ADMINS = [('sergey', 'sergey_sizow@ukr.net'), ('Sergey', 'sergeysizow1989@gmail.com')] # email will be sent to your_email
+ADMINS = ['sergey', 'sergey_sizow@ukr.net'] # email will be sent to your_email
 MANAGERS = ADMINS
 
 #SITE_ID = 1
