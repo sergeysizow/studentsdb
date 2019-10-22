@@ -1,3 +1,14 @@
+
+$(document).ready(function () {
+    initJournal();
+    initGroupSelector();
+    initDateFields();
+    initEditStudentPage();
+    $('#id_email').on('blur', email_validate);
+});
+
+
+
 function initJournal() {
     var indicator= $('#ajax-progress-indicator');
 
@@ -85,7 +96,7 @@ function initEditStudentPage() {
       'success': function(data, status, xhr){
         // check if we got successfull response from the server
         if (status != 'success') {
-          alert('Помилка на сервері. Спробуйте будь-ласка пізніше.');
+          alert(gettext("There was an error on the server. Try again a bit later, please."));
           return false;
         }
 
@@ -106,7 +117,7 @@ function initEditStudentPage() {
         });
       },
       'error': function(){
-          alert('Помилка на сервері. Спробуйте будь-ласка пізніше.');
+          alert(gettext("There was an error on the server. Try again a bit later, please."));
           return false
       }
     });
@@ -129,7 +140,7 @@ function initEditStudentForm(form, modal) {
   form.ajaxForm({
     'dataType': 'html',
     'error': function(){
-        alert('Помилка на сервері. Спробуйте будь-ласка пізніше.');
+        alert(gettext("There was an error on the server. Try again a bit later, please."));
         return false;
     },
     'success': function(data, status, xhr) {
@@ -154,10 +165,31 @@ function initEditStudentForm(form, modal) {
   });
 }
 
-$(document).ready(function () {
-    initJournal();
-    initGroupSelector();
-    initDateFields();
-    initEditStudentPage();
-});
+function email_validate() {
+    var email =  $('#id_email').val();
+    $.ajax({
+        method: "GET",
+        url:'/auth/email_validate/',
+        data:{
+            'email':email
+        },
+        dataType: 'json',
+        success:function (data) {
+            console.log(data);
+            if (data.is_taken) {
+                $('#error-mail').text(data.is_taken);
+                $('#submit-id-submit').attr('disabled', 'disabled');
+            }
+            else if (data.ok) {
+                $('#error-mail').text('');
+                $('#submit-id-submit').removeAttr('disabled');
+            }
+        },
 
+        error: function(data){
+            console.log(data);
+    }
+
+    })
+    
+}

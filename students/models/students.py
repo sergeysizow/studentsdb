@@ -1,8 +1,5 @@
-# _*_ coding: utf-8 _*_
-
-from __future__ import unicode_literals
-
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 #from .groups import Group
 
 
@@ -12,50 +9,58 @@ class Student(models.Model):
     # user-friendly name in admin
 
     class Meta(object):
-        verbose_name = u"Студент",
-        verbose_name_plural = u"Студенти"
+        verbose_name = _("Student"),
+        verbose_name_plural = _("Students")
 
     first_name = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Ім'я")
+        verbose_name=_("First name")
+    )
 
     last_name = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Прізвище")
+        verbose_name=_("Last name")
+    )
 
     middle_name = models.CharField(
         max_length=256,
         blank=True,
-        verbose_name=u"По-батькові",
-        default='')
+        verbose_name=_("Middle name"),
+        default=''
+    )
 
     birthday = models.DateField(
         blank=False,
-        verbose_name=u"Дата народження",
-        null=True)
+        verbose_name=_("Birthday"),
+        null=True
+    )
 
     photo = models.ImageField(
         blank=True,
-        verbose_name=u"Фото",
-        null=True)
+        verbose_name=_("Photo"),
+        null=True
+    )
 
     ticket = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name=u"Білет")
+        verbose_name=_("Ticket")
+    )
 
     notes = models.TextField(
         blank=True,
-        verbose_name=u"Додаткові нотатки")
+        verbose_name=_("Extra notes")
+    )
 
     student_group = models.ForeignKey(
         'Group',
-        verbose_name=u"Група",
+        verbose_name=_("Group"),
         blank=False,
         null=True,
-        on_delete=models.PROTECT)
+        on_delete=models.PROTECT
+    )
 
     # change name students in admin for human))
     def __unicode__(self):

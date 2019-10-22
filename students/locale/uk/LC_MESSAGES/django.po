@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-27 22:16+0300\n"
+"POT-Creation-Date: 2018-09-25 18:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: studentsdb/students/models/groups.py:12
+#: studentsdb/students/models/students.py:59
+#: studentsdb/students/templates/exams/exams_list.html:38
+#: studentsdb/students/templates/groups/groups_list.html:27
+msgid "Group"
+msgstr "Група"
+
+#: studentsdb/students/models/groups.py:13
+#: studentsdb/students/templates/groups/groups_list.html:6
+#: studentsdb/students/templates/students/base.html:63
+msgid "Groups"
+msgstr "Групи"
+
+#: studentsdb/students/models/groups.py:18
+#: studentsdb/students/templates/exams/exams_list.html:24
+msgid "Title"
+msgstr "Назва"
+
+#: studentsdb/students/models/groups.py:22
+#: studentsdb/students/templates/groups/groups_list.html:33
+msgid "Leader"
+msgstr "Староста"
+
+#: studentsdb/students/models/groups.py:29
+#: studentsdb/students/models/students.py:54
+msgid "Extra notes"
+msgstr "Додаткові нотатки"
+
+#: studentsdb/students/models/monthjournal.py:11
+#: studentsdb/students/templates/students/journal_list.html:6
+#: studentsdb/students/templates/students/students_list.html:74
+msgid "Journal"
+msgstr "Журнал"
+
+#: studentsdb/students/models/monthjournal.py:12
+msgid "Journals"
+msgstr "Журнали"
+
+#: studentsdb/students/models/monthjournal.py:16
+#: studentsdb/students/models/students.py:12
+#: studentsdb/students/templates/journal/journal.html:41
+msgid "Student"
+msgstr "Студент"
+
+#: studentsdb/students/models/monthjournal.py:21
+msgid "date"
+msgstr "Дата"
+
+#: studentsdb/students/models/students.py:13
+#: studentsdb/students/templates/students/base.html:61
+#: studentsdb/students/templates/students/students_list.html:9
+msgid "Students"
+msgstr "Студенти"
+
+#: studentsdb/students/models/students.py:18
+msgid "First name"
+msgstr "Ім'я"
+
+#: studentsdb/students/models/students.py:24
+msgid "Last name"
+msgstr "Прізвище"
+
+#: studentsdb/students/models/students.py:30
+msgid "Middle name"
+msgstr "По-батькові"
+
+#: studentsdb/students/models/students.py:36
+msgid "Birthday"
+msgstr "День народження"
+
+#: studentsdb/students/models/students.py:42
+#: studentsdb/students/templates/students/students_list.html:25
+msgid "Photo"
+msgstr "Фото"
+
+#: studentsdb/students/models/students.py:49
+#: studentsdb/students/templates/students/students_list.html:42
+msgid "Ticket"
+msgstr "Квиток"
 
 #: studentsdb/students/templates/contact_admin/form.html:7
 #: studentsdb/students/templates/contact_admin/form.html:9
@@ -29,6 +109,7 @@ msgid "Correct the mistakes"
 msgstr "Виправте помилки"
 
 #: studentsdb/students/templates/exams/exams_add.html:8
+#: studentsdb/students/templates/exams/exams_add.html:10
 msgid "Add Exam"
 msgstr "Додати Екзамен"
 
@@ -38,7 +119,7 @@ msgid "Exam Delete"
 msgstr "Видалити Екзамен"
 
 #: studentsdb/students/templates/exams/exams_delete.html:15
-msgid "Are you really wont delete this exam"
+msgid "Are you really want delete this exam"
 msgstr "Ви дійстно хочете видалити цей екзамен"
 
 #: studentsdb/students/templates/exams/exams_delete.html:16
@@ -71,18 +152,9 @@ msgstr "Список Екзаменів"
 msgid "Make exam"
 msgstr "Створити Екзамен"
 
-#: studentsdb/students/templates/exams/exams_list.html:24
-msgid "Title"
-msgstr "Назва"
-
 #: studentsdb/students/templates/exams/exams_list.html:31
 msgid "Data"
 msgstr "Дата"
-
-#: studentsdb/students/templates/exams/exams_list.html:38
-#: studentsdb/students/templates/groups/groups_list.html:27
-msgid "Group"
-msgstr "Групи"
 
 #: studentsdb/students/templates/exams/exams_list.html:43
 msgid "Teacher"
@@ -108,9 +180,10 @@ msgstr "Дія"
 #: studentsdb/students/templates/groups/groups_list.html:48
 #: studentsdb/students/templates/groups/groups_list.html:49
 #: studentsdb/students/templates/groups/groups_list.html:65
-#: studentsdb/students/templates/journal/journal.html:69
+#: studentsdb/students/templates/journal/journal.html:68
 #: studentsdb/students/templates/students/students_list.html:61
 #: studentsdb/students/templates/students/students_list.html:62
+#: studentsdb/students/templates/students/students_list.html:79
 msgid "Edit"
 msgstr "Редагувати"
 
@@ -132,21 +205,12 @@ msgid "Delete Group"
 msgstr "Видалити Групу"
 
 #: studentsdb/students/templates/groups/groups_delete.html:15
-msgid "Are you really wont delete this group"
+msgid "Are you really want delete this group"
 msgstr "Ви дійсно хочете видалити цю групу"
-
-#: studentsdb/students/templates/groups/groups_list.html:6
-#: studentsdb/students/templates/students/base.html:63
-msgid "Groups"
-msgstr "Групи"
 
 #: studentsdb/students/templates/groups/groups_list.html:8
 msgid "Students Group"
 msgstr "Групи Студентів"
-
-#: studentsdb/students/templates/groups/groups_list.html:33
-msgid "Leader"
-msgstr "Викладач"
 
 #: studentsdb/students/templates/groups/groups_list.html:60
 #: studentsdb/students/templates/students/base.html:62
@@ -175,7 +239,8 @@ msgstr "один"
 msgid ""
 "Changes to the journal are saved automatically with each click in the cell "
 "of the table"
-msgstr "Зміни в журналі зберігаються автоматично після кожного кліку по клітинці"
+msgstr ""
+"Зміни в журналі зберігаються автоматично після кожного кліку по клітинці"
 
 #: studentsdb/students/templates/journal/journal.html:22
 msgid "Save..."
@@ -188,10 +253,6 @@ msgstr "Попередній місяць"
 #: studentsdb/students/templates/journal/journal.html:31
 msgid "Next month"
 msgstr "Наступний місяць"
-
-#: studentsdb/students/templates/journal/journal.html:41
-msgid "Student"
-msgstr "Студент"
 
 #: studentsdb/students/templates/students/base.html:9
 #: studentsdb/students/templates/students/base.html:34
@@ -211,19 +272,9 @@ msgstr "Групи:"
 msgid "All Students"
 msgstr "Всі студенти"
 
-#: studentsdb/students/templates/students/base.html:61
-#: studentsdb/students/templates/students/students_list.html:9
-msgid "Students"
-msgstr "Студенти"
-
 #: studentsdb/students/templates/students/base.html:65
 msgid "Contact"
 msgstr "Звʼязок"
-
-#: studentsdb/students/templates/students/journal_list.html:6
-#: studentsdb/students/templates/students/students_list.html:74
-msgid "Journal"
-msgstr "Журнал"
 
 #: studentsdb/students/templates/students/journal_list.html:15
 #: studentsdb/students/templates/students/students_add.html:8
@@ -243,7 +294,7 @@ msgid "Deleting Student"
 msgstr "Видалити студента"
 
 #: studentsdb/students/templates/students/students_confirm_delete.html:15
-msgid "Are you really wont delete this student"
+msgid "Are you really want delete this student"
 msgstr "Ви дійсно хочете видалити цього студенета"
 
 #: studentsdb/students/templates/students/students_edit.html:8
@@ -255,10 +306,6 @@ msgstr "Редагувати студента"
 msgid "Students List"
 msgstr "Список студентів"
 
-#: studentsdb/students/templates/students/students_list.html:25
-msgid "Photo"
-msgstr "Фото"
-
 #: studentsdb/students/templates/students/students_list.html:28
 msgid "Name"
 msgstr "Імʼя"
@@ -267,6 +314,145 @@ msgstr "Імʼя"
 msgid "Last Name"
 msgstr "Прізвище"
 
-#: studentsdb/students/templates/students/students_list.html:42
-msgid "Ticket"
-msgstr "Квиток"
+#: studentsdb/students/views/contact_admin.py:37
+msgid "Send"
+msgstr "Відправити"
+
+#: studentsdb/students/views/contact_admin.py:38
+#: studentsdb/students/views/exams.py:73 studentsdb/students/views/exams.py:118
+#: studentsdb/students/views/groups.py:89
+#: studentsdb/students/views/groups.py:132
+#: studentsdb/students/views/students.py:176
+#: studentsdb/students/views/students.py:204
+msgid "Cancel"
+msgstr "Відміна"
+
+#: studentsdb/students/views/contact_admin.py:41
+msgid "Your email"
+msgstr "Ваш email"
+
+#: studentsdb/students/views/contact_admin.py:44
+msgid "Subject"
+msgstr "Тема"
+
+#: studentsdb/students/views/contact_admin.py:48
+msgid "Message"
+msgstr "Повідомлення"
+
+#: studentsdb/students/views/contact_admin.py:69
+msgid "There was an error sending the letter, try to use this form later"
+msgstr "Сталася помилка на сервері, скористайтеся будь ласка пізніше"
+
+#: studentsdb/students/views/contact_admin.py:71
+msgid "The letter is sending successful"
+msgstr "Лист успішно відправлено"
+
+#: studentsdb/students/views/exams.py:71 studentsdb/students/views/exams.py:117
+#: studentsdb/students/views/groups.py:88
+#: studentsdb/students/views/groups.py:131
+#: studentsdb/students/views/students.py:175
+#: studentsdb/students/views/students.py:203
+msgid "Save"
+msgstr "Зберегти"
+
+#: studentsdb/students/views/exams.py:84
+#, python-format
+msgid "Exam %(title)s is created successful"
+msgstr "Екзамен %(title)s успішно створений"
+
+#: studentsdb/students/views/exams.py:91
+msgid "Exams creating is canceling"
+msgstr "Створення екзамену відмінено"
+
+#: studentsdb/students/views/exams.py:127
+#, python-format
+msgid "Exam %(title)s is editing successful"
+msgstr "Екзамен %(title)s успішно зменено"
+
+#: studentsdb/students/views/exams.py:134
+msgid "Updating exam is cancel"
+msgstr "Зміни в екзамені скасовано"
+
+#: studentsdb/students/views/exams.py:144
+msgid "Exam is deleting successful"
+msgstr "Екзамен успішно видалений"
+
+#: studentsdb/students/views/exams.py:152
+msgid "Deleting exam is cancel"
+msgstr "Видалення екзамену відмінено"
+
+#: studentsdb/students/views/groups.py:98
+#, python-format
+msgid "Group %(title)s is created successful"
+msgstr "Група %(title)s успішно створена"
+
+#: studentsdb/students/views/groups.py:105
+msgid "Creating group is canceling"
+msgstr "Створення групи відмінено"
+
+#: studentsdb/students/views/groups.py:141
+#, python-format
+msgid "Group %(title)s is changed successful"
+msgstr "Зміни в групу %(title)s успішно внесено"
+
+#: studentsdb/students/views/groups.py:148
+msgid "Group updating is cancel"
+msgstr "Редагування групи відмінено"
+
+#: studentsdb/students/views/groups.py:159
+msgid "Group is deleting successful"
+msgstr "Групу успішно видалено"
+
+#: studentsdb/students/views/groups.py:167
+msgid "Deleting group is cancel"
+msgstr "Видалення групи відмінено"
+
+#: studentsdb/students/views/journal.py:109
+msgid "Changes to the visit log have been saved"
+msgstr "Збережено зміни до журналу відвідування"
+
+#: studentsdb/students/views/students.py:216
+#, python-format
+msgid "Student %(last_name)s generated successfully"
+msgstr "Студент %(last_name)s успішно створений"
+
+#: studentsdb/students/views/students.py:223
+msgid "Student creation is canceled"
+msgstr "Створення студента відмінено"
+
+#: studentsdb/students/views/students.py:234
+#, python-format
+msgid "Student %(last_name)s edited successfully"
+msgstr "Студент %(last_name)s успішно редагований"
+
+#: studentsdb/students/views/students.py:242
+msgid "Student edition is canceled"
+msgstr "Редагування студента відмінено"
+
+#: studentsdb/students/views/students.py:253
+msgid "Student deleted successfully"
+msgstr "Студент успішно видалений"
+
+#: studentsdb/students/views/students.py:261
+msgid "Student deleted is canceled"
+msgstr "Видалення студента відмінено"
+
+#: studentsdb/studentsdb/settings.py:110
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: studentsdb/studentsdb/settings.py:111
+msgid "Great Britain"
+msgstr "Англійська- Британська"
+
+#~ msgid "Text"
+#~ msgstr "Текст повідомлення"
+
+#~ msgid "Sending email is cancel"
+#~ msgstr "Відправка листа скасовано"
+
+#~ msgid "Title mail"
+#~ msgstr "Тема"
+
+#~ msgid "Welcome to our page"
+#~ msgstr "Ласкаво просимо до нашої сторінкию"

@@ -1,0 +1,17 @@
+{% extends "students/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}{{ user.get_full_name|default:user.username }}
+{% endblock meta_title %}
+
+{% block title %}{{ user.get_full_name|default:user.username }}
+{% endblock title %}
+
+{% block content %}
+    <h2>Users</h2>
+    <ul>
+        {% for user in users %}
+           <li><a href="{% url 'profile_edit' user.id %}">{{ user.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

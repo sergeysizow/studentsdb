@@ -1,12 +1,13 @@
 {% extends "students/base.html" %}
+{% load i18n %}
 
 {% load static from staticfiles %}
 
 {% load crispy_forms_tags %}
 
-{% block meta_title %}Редагувати Екзамен{% endblock meta_title %}
+{% block meta_title %}{% trans "Exam Edit" %}{% endblock meta_title %}
 
-{% block title %}Редагувати Екзамен{% endblock title %}
+{% block title %}{% trans "Exam Edit" %}{% endblock title %}
 
 {% block content %}
 

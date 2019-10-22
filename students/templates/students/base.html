@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static from staticfiles %}
 
 <! DOCTYPE html>
@@ -5,8 +6,8 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <title>Сервіс Обілку Студентів - {% block meta_title %}{% endblock meta_title %}</title>
-    <meta name="description" value="Система Обліку Студентів Навчального Закладу" />
+    <title>{% trans "Students Accounting Service" %} - {% block meta_title %}{% endblock meta_title %}</title>
+    <meta name="description" value='{% trans "App to manage students database" %}' />
 
     <!-- Include Styles -->
     <link rel="stylesheet"
@@ -24,44 +25,59 @@
     <!-- Start Conteiner-->
     <div class="container">
 
-        <!--Start Header-->
+            <!-- Start Header -->
         <div class="row" id="header">
+          <div class="col-xs-6">
+            <h1>{% trans "Students Accounting Service" %}</h1>
+          </div>
 
-            <!--Logo-->
-            {% block logo %}
-            <div class="col-xs-8">
-                <h1>Сервіс Обліку Студентів</h1>
-            </div>
-            {% endblock logo %}
+          {% if user.is_authenticated %}
+          <div class="col-xs-4" id="group-selector">
+            <strong>{% trans "Group" %}:</strong>
+            <select>
+              <option value="">{% trans "All Students" %}</option>
+              {% for group in GROUPS %}
+              <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>{{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}</option>
+              {% endfor %}
+            </select>
+          </div>
 
-            <!--Groups Selector-->
-            {% block menu_group %}
+          <!-- User's toolbar for authenticated users -->
+          <div class="col-xs-2" id="user-toolbar">
+            <a href="{% url 'profile' %}">{{ user.get_full_name|default:user.username }}</a> |
+            <a href="{% url 'stud_auth/logout' %}">{% trans "Logout" %}</a>
+          </div>
 
-            <div class="col-xs-4" id="group-selector">
-                <strong>Група:</strong>
-                    <select>
-                        <option value="">Усі Студенти</option>
-                        {% for group in GROUPS %}
-                        <option value="{{ group.id }}"{% if group.selected %}selected="1"{% endif %}>
-                            {{ group.title }}{% if group.leader %}, {{ group.leader }}{% endif %}</option>
-                        {% endfor %}
-                    </select>
-            </div>
+          {% else %}
 
-            {% endblock menu_group %}
+          <!-- User's toolbar for anonymous users -->
+          <div class="col-xs-6" id="user-toolbar">
+
+            <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">{% trans 'via Facebook' %}</a>
+            <a href= "{% url 'login'%}">{% trans "Login" %}</a>
+            <a href="{% url 'register'%}">{% trans "Register" %}</a>
+              <div id="google-plus-button">Google+ Sign In</div>
+              <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+              <div class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+          </div>
+          {% endif %}
 
         </div>
-        <!-- End Header-->
+        <!-- End Header -->
 
         <!--Start SubHeader-->
         <div class="row" id="sub-header">
                 <div class="col-xs-12">
                    <ul class="nav nav-tabs" role="tablist">
-                       <li role="presentation" {% if request.path == '/' %} class="active" {% endif %}><a href="{% url 'home' %}">Студенти</a></li>
-                       <li role="presentation" {% if '/journal' in request.path %} class="active" {% endif %}><a href="{% url 'journal' %}">Відвідування</a></li>
-                       <li role="presentation" {% if '/groups' in request.path %} class="active" {% endif %}><a href="{% url 'groups' %}">Групи</a></li>
-                       <li role="presentation" {% if '/exams' in request.path %} class="active" {% endif %}><a href="{% url 'exams' %}">Екзамени</a></li>
-                       <li role="presentation" {% if '/contact-admin' in request.path %} class="active" {% endif %}><a href="{% url 'contact_admin' %}">Контакт</a></li>
+                       <li role="presentation" {% if request.path == '/' %} class="active" {% endif %}><a href="{% url 'home' %}">{% trans "Students" %}</a></li>
+                       <li role="presentation" {% if '/journal' in request.path %} class="active" {% endif %}><a href="{% url 'journal' %}">{% trans "Visiting" %}</a></li>
+                       <li role="presentation" {% if '/groups' in request.path %} class="active" {% endif %}><a href="{% url 'groups' %}">{% trans "Groups" %}</a></li>
+                       <li role="presentation" {% if '/exams' in request.path %} class="active" {% endif %}><a href="{% url 'exams' %}">{% trans "Exams" %}</a></li>
+                       {% if user.is_authenticated %}
+                       <li role="presentation" {% if '/contact-admin' in request.path %} class="active" {% endif %}><a href="{% url 'contact_admin' %}">{% trans "Contact" %}</a></li>
+                       <li role="presentation" {% if '/users' in request.path %} class="active" {% endif %}><a href="{% url 'users' %}">{% trans "Users" %}</a></li>
+                       {% endif %}
                    </ul>
                 </div>
             </div>
@@ -89,10 +105,13 @@
         <!--Start Footer-->
         {% block footer %}
         <div class="row" id="footer">
-                 <div class="col-xs-12">
-                    &copy; 2017 Сервіс Обліку Студентів
+                 <div class="col-xs-10">
+                    &copy; 2017 {% trans "Students Accounting Service" %}
                  </div>
-             </div>
+            <!-- Language switcher -->
+                 <div class="col-xs-2">
+{% include 'includes/language_selector.html' %}
+                 </div>
         {% endblock footer %}
         <!--End Footer-->
 
@@ -127,7 +146,55 @@
     <script src="{% static 'js/jquery.cookie.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" charset="UTF-8" format="YYYY.MM.DD"></script>
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v3.2&appId=585767655210484&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+        <script src="https://apis.google.com/js/api:client.js"></script>
+
+<script type="text/javascript">
+  gapi.load('auth2', function () {
+    var auth2;
+
+    auth2 = gapi.auth2.init({
+      client_id: "<PUT SOCIAL_AUTH_GOOGLE_PLUS_KEY HERE>",
+      scope: "<PUT BACKEND SCOPE HERE>"
+    });
+
+    auth2.then(function () {
+      var button = document.getElementById("google-plus-button");
+      console.log("User is signed-in in Google+ platform?", auth2.isSignedIn.get() ? "Yes" : "No");
+
+      auth2.attachClickHandler(button, {}, function (googleUser) {
+        // Send access-token to backend to finish the authenticate
+        // with your application
+
+        var authResponse = googleUser.getAuthResponse();
+        var $form;
+        var $input;
+
+        $form = $("<form>");
+        $form.attr("action", "/complete/google-plus");
+        $form.attr("method", "post");
+        $input = $("<input>");
+        $input.attr("name", "id_token");
+        $input.attr("value", authResponse.id_token);
+        $form.append($input);
+        // Add csrf-token if needed
+        $(document.body).append($form);
+        $form.submit();
+      });
+    });
+  });
+</script>
     {% block extra_js %}{% endblock extra_js %}
 
 </body>

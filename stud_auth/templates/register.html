@@ -1,0 +1,9 @@
+{% extends "students/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block meta_title %}{% trans "Registration Form" %}{% endblock meta_title %}
+{% block title %}{% trans "Registration Form" %}{% endblock title %}
+{% block content %}
+<p id="error-mail"></p>
+{% crispy form %}
+{% endblock content %}

@@ -21,6 +21,8 @@
 
 {% block content %}
 
+{% csrf_token %}
+
 {% crispy form %}
 
 {% endblock content %}

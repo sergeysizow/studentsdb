@@ -16,18 +16,22 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import JavaScriptCatalog
 
 from students.views import students, groups, journal, exams, contact_admin
 from students.views.students import StudentAddView, StudentUpdateView, StudentDeleteView
 from students.views.groups import GroupAddView, GroupUpdateView, GroupDeleteView
 from students.views.exams import ExamAddView, ExamUpdateView, ExamDeleteView
 from students.views.journal import JournalView
+from students.views.contact_admin import contact_admin
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import  login_required
 
+urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n'))]
 
-urlpatterns = i18n_patterns(
+urlpatterns += i18n_patterns(
 
     # Students url
     url(r'^$', students.students_list, name='home'),
@@ -49,15 +53,29 @@ urlpatterns = i18n_patterns(
 
     # Other url
     url(r'^journal/(?P<pk>\d+)?/?$', JournalView.as_view(), name='journal'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
+    url('', include('social_django.urls', namespace='social')),
+
+    # auth
+    url(r'^stud_auth/', include('stud_auth.urls')),
 
     # Contact admin form
-    url(r'^contact-admin/$', contact_admin.contact_admin, name='contact_admin'),
+    url(r'^contact-admin/$', login_required(contact_admin), name='contact_admin'),
     # url(r'^contact-admin/$', ContactView.as_view()),
     # url(r'^contact-admin/$', include('contact_form.urls')),
 
+    # User Related urls
+   # url(r'^users/logout/$', auth_views.logout, kwargs={'next_page':'home'},
+   # name='auth_logout'),
+   # url(r'^register/complete/$', RedirectView.as_view(pattern_name='home'),
+   # name='registration_complete'),
+   # url(r'^users/', include('registration.backends.simple.urls',
+   # namespace='users')),
 
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # JS
+    url(r'jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+
+    ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     # serve files from media folder

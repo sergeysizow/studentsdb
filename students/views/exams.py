@@ -1,10 +1,9 @@
-# _*_ coding: utf-8 _*_
-
 from django.shortcuts import render
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.translation import ugettext_lazy as _
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -17,7 +16,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from ..util import paginate, get_current_group
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, HTML
 from crispy_forms.bootstrap import FormActions, AppendedText
 
 # Views for Exams
@@ -69,9 +68,9 @@ class ExamAddForm(ModelForm):
         self.helper.field_class = 'col-sm-3'
 
         self.helper.layout.append(FormActions(
-            Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
-            Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
-        ))
+            Submit('add_button', _("Save"), css_class='btn btn-primary'),
+            HTML("<a class='btn btn-link' href='%s'>%s</a>" % (
+                reverse('exams'), _('Cancel')))))
 
         self.helper.layout[1] = AppendedText('date',
                                              '<span class="glyphicon glyphicon-calendar"></span>', active=True)
@@ -82,14 +81,14 @@ class ExamAddView(SuccessMessageMixin, CreateView):
     template_name = 'exams/exams_add.html'
     form_class = ExamAddForm
     success_url = '/exams'
-    success_message = u"Екзамен %(title)s успішно створено"
+    success_message = _("Exam %(title)s is created successful")
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, title=self.object.title)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Створення екзамену відмінено')
+            messages.add_message(request, messages.INFO, _("Exams creating is canceling"))
             return HttpResponseRedirect(reverse('/exams'))
         else:
             return super(ExamAddView, self).post(request, *args, **kwargs)
@@ -115,9 +114,9 @@ class ExamUpdateForm(ModelForm):
         self.helper.field_class = 'col-sm-10'
 
         self.helper.layout.append(FormActions(
-            Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
-            Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
-        ))
+            Submit('add_button', _("Save"), css_class='btn btn-primary'),
+            HTML("<a class='btn btn-link' href='%s'>%s</a>" % (
+                reverse('home'), _('Cancel')))))
 
 
 class ExamUpdateView(SuccessMessageMixin, UpdateView):
@@ -125,14 +124,14 @@ class ExamUpdateView(SuccessMessageMixin, UpdateView):
     template_name = 'exams/exams_edit.html'
     form_class = ExamUpdateForm
     success_url = '/exams'
-    success_message = u"Екзамен %(title)s успішно відредактовано"
+    success_message = _("Exam %(title)s is editing successful")
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, title=self.object.title)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Редагуваня екзамену відмінено')
+            messages.add_message(request, messages.INFO, _("Updating exam is cancel"))
             return HttpResponseRedirect(reverse('exams'))
         else:
             return super(ExamUpdateView, self).post(request, *args, **kwargs)
@@ -142,7 +141,7 @@ class ExamDeleteView(DeleteView):
     model = Exam
     template_name = 'exams/exams_delete.html'
     success_url = reverse_lazy('exams')
-    success_message = u"Екзамен успішно видалений"
+    success_message = _("Exam is deleting successful")
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
@@ -150,7 +149,7 @@ class ExamDeleteView(DeleteView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Видалення екзамену відмінено')
+            messages.add_message(request, messages.INFO, _("Deleting exam is cancel"))
             return HttpResponseRedirect(reverse('exams'))
 
         else:

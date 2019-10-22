@@ -1,4 +1,3 @@
-# _*_ coding: utf-8 _*_
 from datetime import date, datetime
 from django.core.urlresolvers import reverse
 from dateutil.relativedelta import relativedelta
@@ -7,6 +6,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 
 from django.views.generic.base import TemplateView
+from django.utils.translation import ugettext_lazy as _
 
 from ..models.students import Student
 from ..models.monthjournal import MonthJournal
@@ -31,7 +31,6 @@ class JournalView(TemplateView):
             today = datetime.today()
             month = date(today.year, today.month, 1)
 
-        # обчислюємо поточний рік, попередній і наступний місяці
         next_month = month + relativedelta(months=1)
         prev_month = month - relativedelta(months=1)
         context['prev_month'] = prev_month.strftime('%Y -%m -%d')
@@ -39,15 +38,14 @@ class JournalView(TemplateView):
         context['year'] = month.year
         context['month_verbose'] = month.strftime('%B')
 
-        # we’ll use this variable in students pagination
-        context['cur_month'] = month.strftime('%Y -%m -%d')
 
+        context['cur_month'] = month.strftime('%Y -%m -%d')
         # prepare variable for template to generate
         # journal table header elements
         myear, mmonth = month.year, month.month
         number_of_days = monthrange(myear, mmonth)[1]
         context['month_header'] = [{'day': d,
-                                    'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
+                                    'verbose': day_abbr[weekday(myear, mmonth, d)][:3]}
                                    for d in range(1, number_of_days + 1)]
 
         # get all students from database, or just one if we need to
@@ -61,15 +59,8 @@ class JournalView(TemplateView):
             else:
                 queryset = Student.objects.all().order_by('last_name')
 
-        # це адреса для посту AJAX запиту, як бачите, ми
-        # робитимемо його на цю ж в’юшку; в’юшка журналу
-        # буде і показувати журнал і обслуговувати запити
-        # типу пост на оновлення журналу;
         # url to update student presence, for form post
         update_url = reverse('journal')
-
-        # пробігаємось по усіх студентах і збираємо
-        # необхідні дані:
 
         students = []
         for student in queryset:
@@ -115,7 +106,7 @@ class JournalView(TemplateView):
         # set new presence on journal for given student and save results
         setattr(journal, 'present_day%d' % current_date.day, present)
         journal.save()
-        messages.add_message(request, messages.SUCCESS, u'Збережено зміни до Журналу Відвідування')
+        messages.add_message(request, messages.SUCCESS, _("Changes to the visit log have been saved"))
 
         # return success status
         return JsonResponse({'status': 'success'})

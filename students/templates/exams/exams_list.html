@@ -1,14 +1,16 @@
 {% extends "students/base.html" %}
+{% load i18n %}
 
 {% load static from staticfiles %}
 
-{% block meta_title %}Екзамени{% endblock meta_title %}
+{% block meta_title %}{% trans "Exams" %}{% endblock meta_title %}
 
-{% block title %}Список Екзаменів{% endblock title %}
+{% block title %}{% trans "Exams List" %}{% endblock title %}
 
 {% block content %}
 
-<a href="{% url 'exams_add' %}" class="btn btn-primary">Створити іспит</a>
+
+<a href="{% url 'exams_add' %}" class="btn btn-primary">{% trans "Make exam" %}</a>
 
 <!-- Start Exams Listing-->
 <table class="table table-hover table-striped">
@@ -19,35 +21,35 @@
     <tr>
         <th>
             <a href="{% url 'exams' %}?order_by=title{% if order_by == 'title' and reverse != '1' %}&amp;reverse=1{% endif %}"
-            >Назва предмету{% if order_by == 'title' and reverse != '1' %}&uarr;
+            >{% trans "Title" %}{% if order_by == 'title' and reverse != '1' %}&uarr;
                 {% elif order_by == 'title' and reverse == '1' %}&darr;
                 {% endif %}
             </a></th>
 
         <th>
             <a href="{% url 'exams' %}?order_by=date{% if order_by == 'date' and reverse != '1' %}&amp;reverse=1{% endif %}"
-            >Дата{% if order_by == 'date' and reverse != '1' %}&uarr;
+            >{% trans "Data" %}{% if order_by == 'date' and reverse != '1' %}&uarr;
                 {% elif order_by == 'date' and reverse == '1' %}&darr;
                 {% endif %}
             </a></th>
 
         <th>
             <a href="{% url 'exams' %}?order_by=student_group{% if order_by == 'student_group' and reverse != '1' %}&amp;reverse=1{% endif %}"
-            >Група{% if order_by == 'student_group' and reverse != '1' %}&uarr;
+            >{% trans "Group" %}{% if order_by == 'student_group' and reverse != '1' %}&uarr;
                 {% elif order_by == 'student_group' and reverse == '1' %}&darr;
                 {% endif %}
             </a></th>
 
-        <th>Викладач</th>
+        <th>{% trans "Teacher" %}</th>
 
         <th>
             <a href="{% url 'exams' %}?order_by=location{% if order_by == 'location' and reverse != '1' %}&amp;reverse=1{% endif %}"
-            >Аудиторія{% if order_by == 'location' and reverse != '1' %}&uarr;
+            >{% trans "Location" %}{% if order_by == 'location' and reverse != '1' %}&uarr;
                 {% elif order_by == 'location' and reverse == '1' %}&darr;
                 {% endif %}
             </a></th>
 
-        <th>Дії</th>
+        <th>{% trans "Actions" %}</th>
     </tr>
     </thead>
 
@@ -62,19 +64,19 @@
         <td>
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle"
-                        type="button" data-toggle="dropdown">Дія
+                        type="button" data-toggle="dropdown">{% trans "Action" %}
                     <span class="caret"></span>
                 </button>
 
                 <ul class="dropdown-menu" role="menu">
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'exams_edit' exams.id %}">Редагувати</a>
+                           href="{% url 'exams_edit' exams.id %}">{% trans "Edit" %}</a>
                     </li>
 
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1"
-                           href="{% url 'exams_delete' exams.id %}">Видалити</a>
+                           href="{% url 'exams_delete' exams.id %}">{% trans "Delete" %}</a>
                     </li>
                 </ul>
             </div>

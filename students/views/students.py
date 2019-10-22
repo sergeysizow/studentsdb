@@ -1,6 +1,9 @@
 # _*_ coding: utf-8 _*_
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.utils.translation import ugettext as _
+
+from django.contrib.auth.mixins import LoginRequiredMixin  # If the user isn’t logged in, redirect to settings.LOGIN_URL,
 
 from django.shortcuts import render
 
@@ -25,7 +28,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, HTML
 from crispy_forms.bootstrap import FormActions, AppendedText
 
 
@@ -171,9 +174,9 @@ class StudentAddForm(ModelForm):
         self.helper.field_class = 'col-sm-3'
 
         self.helper.layout.append(FormActions(
-            Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
-            Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
-        ))
+            Submit('add_button', _("Save"), css_class='btn btn-primary'),
+            HTML("<a class='btn btn-link' href='%s'>%s</a>" % (
+                reverse('home'), _('Cancel')))))
 
         self.helper.layout[3] = AppendedText('birthday',
                                              '<span class="glyphicon glyphicon-calendar"></span>', active=True)
@@ -199,56 +202,56 @@ class StudentUpdateForm(ModelForm):
         self.helper.field_class = 'col-sm-5'
 
         self.helper.layout.append(FormActions(
-            Submit('add_button', u'Зберегти', css_class='btn btn-primary'),
-            Submit('cancel_button', u'Скасувати', css_class='btn btn-link'),
-        ))
+            Submit('add_button', _("Save"), css_class='btn btn-primary'),
+            HTML("<a class='btn btn-link' href='%s'>%s</a>" % (
+                reverse('home'), _('Cancel')))))
 
         self.helper.layout[3] = AppendedText('birthday',
                                              '<span class="glyphicon glyphicon-calendar"></span>', active=True)
 
 
-class StudentAddView(SuccessMessageMixin, CreateView):
+class StudentAddView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Student
     template_name = 'students/students_add.html'
     form_class = StudentAddForm
     success_url = '/'
-    success_message = u"Студент %(last_name)s успішно створений"
+    success_message = _("Student %(last_name)s generated successfully")
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, last_name=self.object.last_name)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Створення студента відмінено')
+            messages.add_message(request, messages.INFO, _("Student creation is canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentAddView, self).post(request, *args, **kwargs)
 
 
-class StudentUpdateView(SuccessMessageMixin, UpdateView):
+class StudentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Student
     template_name = 'students/students_edit.html'
     form_class = StudentUpdateForm
     success_url = '/'
-    success_message = u"Студент %(last_name)s успішно редактований"
+    success_message = _("Student %(last_name)s edited successfully")
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(cleaned_data, last_name=self.object.last_name)
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Редагування студента відмінено')
+            messages.add_message(request, messages.INFO, _("Student edition is canceled"))
             return HttpResponseRedirect(reverse('home'))
         else:
             return super(StudentUpdateView, self).post(request, *args, **kwargs)
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     template_name = 'students/students_confirm_delete.html'
     form_class = StudentUpdateForm
     success_url = reverse_lazy('home')
-    success_message = u"Студента успішно видалено"
+    success_message = _("Student deleted successfully")
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
@@ -256,7 +259,7 @@ class StudentDeleteView(DeleteView):
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('cancel_button'):
-            messages.add_message(request, messages.INFO, u'Видалення студента відмінено')
+            messages.add_message(request, messages.INFO, _("Student deleted is canceled"))
             return HttpResponseRedirect(reverse('home'))
 
         else:

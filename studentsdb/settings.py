@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from studentsdb.security import EMAIL_HOST_PASSWORD
+from .security import *
 from django.contrib.messages import constants as messages
 from db import DATABASES
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -27,9 +27,6 @@ SECRET_KEY = '54tqy706pia!#9*1=8t9e&gp#l=hb!0x9m+)e%o^(9)s9)d$$w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'social_django',
+    #'registration',
     'students',
+    'stud_auth',
     #'contact_form',
     #'django.contrib.sites',
     #'students.colorize',
@@ -50,20 +50,36 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware', 
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'studentsdb.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.google.GooglePlusAuth',  # for google auth
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+    'django.contrib.auth.backends.ModelBackend',     # default backend
+)
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '..', 'students/templates'),],  #new dir
+        'DIRS': [os.path.join(BASE_DIR, '..', 'students/templates', 'stud_auth/templates'),],  #new dir
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,6 +89,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages', 
                 'studentsdb.context_processors.students_proc', #new function
                 'students.context_processors.groups_processor',
+                'django.template.context_processors.i18n',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -104,6 +123,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'uk'
+LANGUAGES = [
+    ('uk', _('Ukrainian')),
+    ('en-gb', _('Great Britain')),
+]
 
 TIME_ZONE = 'UTC'
 
@@ -117,13 +140,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/students/static/'
 
 LOCALE_PATH = [os.path.join(BASE_DIR, 'studentsdb/students/locale')]
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'media')
+
+#STATICFILES_DIRS = [
+  #  os.path.join(BASE_DIR, "static"),
+    #'/var/www/static/',
+#]
 
 # email settings
 # please, set here you SMTP server details and your admin email
@@ -135,7 +163,7 @@ EMAIL_HOST_USER = 'sergeysizow1989@gmail.com'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-ADMINS = ['sergey', 'sergey_sizow@ukr.net'] # email will be sent to your_email
+ADMINS = [('sergey', 'sergey_sizow@ukr.net'), ('admin', 'sergey_sizow@ukr.net')] # email will be sent to your_email
 MANAGERS = ADMINS
 
 #SITE_ID = 1

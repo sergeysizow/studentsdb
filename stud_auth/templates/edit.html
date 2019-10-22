@@ -1,0 +1,29 @@
+{% extends "students/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}{{ user.get_full_name|default:user.username }}
+{% endblock meta_title %}
+
+{% block title %}{{ user.get_full_name|default:user.username }}
+{% endblock title %}
+
+{% block content %}
+
+<form method="post" action="">
+         {% csrf_token %}
+    <table>
+      {{ form }}
+    </table>
+    <table>
+	  {{ user_formset }}
+    </table>
+    <input type="submit" value="Update"/>
+    </form>
+
+
+<form action="{% url 'password_change'%}">
+    <input type="submit" value="{% trans 'Check Password' %}" />
+</form>
+
+{% endblock content %}
+

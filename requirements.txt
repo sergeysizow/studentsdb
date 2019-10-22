@@ -3,3 +3,6 @@ MySQL-python
 django-crispy-forms==1.6.1
 django-contact-form
 python-dateutil
+django-registration-redux==1.9
+social-auth-app-django==3.0.0
+
