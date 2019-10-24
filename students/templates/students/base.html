@@ -45,7 +45,7 @@
           <!-- User's toolbar for authenticated users -->
           <div class="col-xs-2" id="user-toolbar">
             <a href="{% url 'profile' %}">{{ user.get_full_name|default:user.username }}</a> |
-            <a href="{% url 'stud_auth/logout' %}">{% trans "Logout" %}</a>
+            <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
           </div>
 
           {% else %}
